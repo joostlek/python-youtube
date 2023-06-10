@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python_youtube"
+name = "async_python_youtube"
 version = "0.0.0"
 description = "Asynchronous Python client for YouTube V3 API."
 authors = ["Joost Lekkerkerker <joostlek@outlook.com>"]
