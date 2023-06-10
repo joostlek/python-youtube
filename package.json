@@ -1,0 +1,14 @@
+{
+  "name": "python_youtube",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Asynchronous Python client for the YouTube V3 API",
+  "scripts": {
+    "prettier": "prettier --write **/*.{json,js,md,yml,yaml}"
+  },
+  "author": "Joost Lekkerkerker <joostlek@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "2.8.8"
+  }
+}
