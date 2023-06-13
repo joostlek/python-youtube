@@ -145,10 +145,15 @@ async def test_fetch_video(
         video = await youtube.get_video(video_id="Ks-_Mh1QhMc")
         assert video
         assert video.snippet
-        assert video.snippet.published_at == datetime.strptime(
-            "2012-10-01T17:27:35",
-            "%Y-%m-%dT%H:%M:%S",
-        ).astimezone(timezone.utc)
+        assert video.snippet.published_at == datetime(
+            2012,
+            10,
+            1,
+            15,
+            27,
+            35,
+            tzinfo=timezone.utc,
+        )
         assert video.snippet.channel_id == "UCAuUUnT6oDeKwE6v1NGQxug"
         assert (
             video.snippet.title
