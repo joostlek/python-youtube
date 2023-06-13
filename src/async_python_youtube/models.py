@@ -4,7 +4,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel, Field
 
-from python_youtube.const import LiveBroadcastContent
+from async_python_youtube.const import LiveBroadcastContent
 
 T = TypeVar("T")
 

@@ -21,7 +21,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
-    { include = "python_youtube", from = "src" },
+    { include = "async_python_youtube", from = "src" },
 ]
 
 [tool.poetry.dependencies]
@@ -57,7 +57,7 @@ show_missing = true
 
 [tool.coverage.run]
 plugins = ["covdefaults"]
-source = ["python_youtube"]
+source = ["async_python_youtube"]
 
 [tool.mypy]
 # Specify the target platform details in config, so your developers are
@@ -151,7 +151,7 @@ fixture-parentheses = false
 mark-parentheses = false
 
 [tool.ruff.isort]
-known-first-party = ["python_youtube"]
+known-first-party = ["async_python_youtube"]
 
 [tool.ruff.mccabe]
 max-complexity = 25

@@ -3,7 +3,7 @@ from collections.abc import AsyncGenerator
 
 import pytest
 
-from python_youtube.helper import chunk, first, limit
+from async_python_youtube.helper import chunk, first, limit
 
 
 async def _generator(amount: int) -> AsyncGenerator[int, None]:

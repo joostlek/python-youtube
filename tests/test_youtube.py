@@ -8,13 +8,13 @@ import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from python_youtube.exceptions import (
+from async_python_youtube.exceptions import (
     YouTubeConnectionError,
     YouTubeError,
     YouTubeNotFoundError,
 )
-from python_youtube.helper import first
-from python_youtube.youtube import YouTube
+from async_python_youtube.helper import first
+from async_python_youtube.youtube import YouTube
 
 from . import load_fixture
 
@@ -234,7 +234,7 @@ async def test_fetch_videos(
         response_handler,
         repeat=2,
     )
-    with patch("python_youtube.youtube.MAX_RESULTS_FOR_VIDEO", 2):
+    with patch("async_python_youtube.youtube.MAX_RESULTS_FOR_VIDEO", 2):
         async with aiohttp.ClientSession() as session:
             youtube = YouTube(session=session)
             videos = youtube.get_videos(

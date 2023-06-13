@@ -11,14 +11,14 @@ from aiohttp import ClientResponseError, ClientSession
 from aiohttp.hdrs import METH_GET
 from yarl import URL
 
-from python_youtube.const import HttpStatusCode
-from python_youtube.exceptions import (
+from async_python_youtube.const import HttpStatusCode
+from async_python_youtube.exceptions import (
     YouTubeConnectionError,
     YouTubeError,
     YouTubeNotFoundError,
 )
-from python_youtube.helper import chunk, first
-from python_youtube.models import YouTubeVideo
+from async_python_youtube.helper import chunk, first
+from async_python_youtube.models import YouTubeVideo
 
 __all__ = [
     "YouTube",
