@@ -127,7 +127,7 @@ class YouTube:
             data = {
                 "part": "snippet",
                 "id": ids,
-                "maxResults": int(MAX_RESULTS_FOR_VIDEO),
+                "maxResults": MAX_RESULTS_FOR_VIDEO,
             }
             res = await self._request("videos", data=data, error_handler=error_handler)
             for item in res["items"]:
