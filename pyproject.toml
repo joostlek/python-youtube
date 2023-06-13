@@ -120,6 +120,7 @@ disable = [
   "duplicate-code",
   "format",
   "unsubscriptable-object",
+  "unnecessary-dunder-call",
 ]
 
 [tool.pylint.SIMILARITIES]
