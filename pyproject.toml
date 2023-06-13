@@ -145,6 +145,7 @@ ignore = [
   "TCH001",
 ]
 select = ["ALL"]
+exclude = ["docs"]
 
 [tool.ruff.flake8-pytest-style]
 fixture-parentheses = false
