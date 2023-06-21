@@ -11,10 +11,9 @@ from . import load_fixture
 YOUTUBE_URL = "youtube.googleapis.com"
 
 
-async def test_timeout(aresponses: ResponsesMockServer) -> None:
-    """Test request timeout."""
+async def test_authentication(aresponses: ResponsesMockServer) -> None:
+    """Test request will be sending bearer token after authentication."""
 
-    # Faking a timeout by sleeping
     async def response_handler(req: BaseRequest) -> Response:
         """Response handler for this test."""
         assert req.headers.get("Authorization") == "Bearer abc"
