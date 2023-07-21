@@ -44,15 +44,16 @@ class YouTube:
         data: dict[str, Any] | None = None,
         error_handler: dict[int, BaseException] | None = None,
     ) -> dict[str, Any]:
-        """Handle a request to OpenSky.
+        """Handle a request to YouTube.
 
         A generic method for sending/handling HTTP requests done against
-        OpenSky.
+        YouTube.
 
         Args:
         ----
             uri: the path to call.
             data: the query parameters to add.
+            error_handler: object with what error to throw at what status code
 
         Returns:
         -------
@@ -61,9 +62,9 @@ class YouTube:
 
         Raises:
         ------
-            OpenSkyConnectionError: An error occurred while communicating with
-                the OpenSky API.
-            OpenSkyrror: Received an unexpected response from the OpenSky API.
+            YouTubeConnectionError: An error occurred while communicating with
+                the YouTube API.
+            YoutubeError: Received an unexpected response from the YouTube API.
         """
         version = metadata.version(__package__)
         url = URL.build(
@@ -74,7 +75,7 @@ class YouTube:
         ).joinpath(uri)
 
         headers = {
-            "User-Agent": f"PythonOpenSky/{version}",
+            "User-Agent": f"PythonYouTube/{version}",
             "Accept": "application/json, text/plain, */*",
         }
 
@@ -146,7 +147,7 @@ class YouTube:
         if self.session and self._close_session:
             await self.session.close()
 
-    async def __aenter__(self) -> Any:
+    async def __aenter__(self) -> "YouTube":
         """Async enter.
 
         Returns
