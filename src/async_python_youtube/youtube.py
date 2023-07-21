@@ -35,6 +35,7 @@ class YouTube:
     request_timeout: int = 10
     api_host: str = "youtube.googleapis.com"
     _close_session: bool = False
+    _access_token: str | None = None
 
     async def _request(
         self,
@@ -77,6 +78,9 @@ class YouTube:
             "Accept": "application/json, text/plain, */*",
         }
 
+        if self._access_token:
+            headers["Authorization"] = f"Bearer {self._access_token}"
+
         if self.session is None:
             self.session = ClientSession()
             self._close_session = True
@@ -109,6 +113,10 @@ class YouTube:
             )
 
         return cast(dict[str, Any], await response.json())
+
+    def authenticate(self, access_token: str) -> None:
+        """Apply authentication to the requests."""
+        self._access_token = access_token
 
     async def get_video(self, video_id: str) -> YouTubeVideo | None:
         """Get a single video."""
