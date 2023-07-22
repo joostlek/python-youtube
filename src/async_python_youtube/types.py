@@ -5,6 +5,15 @@ __all__ = [
     "AuthScope",
     "YouTubeAPIError",
     "YouTubeAuthorizationError",
+    "InvalidRefreshTokenError",
+    "InvalidTokenError",
+    "UnauthorizedError",
+    "MissingScopeError",
+    "YouTubeBackendError",
+    "MissingAppSecretError",
+    "DeprecatedError",
+    "YouTubeResourceNotFoundError",
+    "ForbiddenError",
 ]
 
 
@@ -22,15 +31,6 @@ class AuthScope(Enum):
     PARTNER_AUDIT = "https://www.googleapis.com/auth/youtubepartner-channel-audit"
 
 
-class AuthType(Enum):
-    """Type of authentication required. Only internal use."""
-
-    NONE = 0
-    USER = 1
-    APP = 2
-    EITHER = 3
-
-
 class YouTubeAPIError(Exception):
     """Base YouTube API exception."""
 
@@ -45,10 +45,6 @@ class InvalidRefreshTokenError(YouTubeAPIError):
 
 class InvalidTokenError(YouTubeAPIError):
     """Used if an invalid token is set for the client."""
-
-
-class NotFoundError(YouTubeAPIError):
-    """Resource was not found with the given parameter."""
 
 
 class UnauthorizedError(YouTubeAuthorizationError):

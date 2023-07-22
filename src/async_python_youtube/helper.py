@@ -7,6 +7,8 @@ from typing import Any, TypeVar
 from async_python_youtube.types import AuthScope
 
 __all__ = [
+    "YOUTUBE_AUTH_BASE_URL",
+    "YOUTUBE_AUTH_TOKEN_URL",
     "build_scope",
     "build_url",
     "first",
