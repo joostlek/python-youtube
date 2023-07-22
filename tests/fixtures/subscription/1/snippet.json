@@ -1,0 +1,21 @@
+{
+    "publishedAt": "2023-07-08T12:06:58.238253Z",
+    "title": "Bellied Up Pod",
+    "description": "",
+    "resourceId": {
+        "kind": "youtube#channel",
+        "channelId": "UCATH-c7kenLwxiGWohX_Jgw"
+    },
+    "channelId": "UCJA_MqaDMFv6Dh-E8bpszIw",
+    "thumbnails": {
+        "default": {
+            "url": "https://yt3.ggpht.com/mE9ypqGduSh34pjlJ-YXBoYYgSeNXIyv-28NSlMzV122mZx4jtD5KdgoKhxmXHnFVnSTMiVNdw=s88-c-k-c0x00ffffff-no-rj"
+        },
+        "medium": {
+            "url": "https://yt3.ggpht.com/mE9ypqGduSh34pjlJ-YXBoYYgSeNXIyv-28NSlMzV122mZx4jtD5KdgoKhxmXHnFVnSTMiVNdw=s240-c-k-c0x00ffffff-no-rj"
+        },
+        "high": {
+            "url": "https://yt3.ggpht.com/mE9ypqGduSh34pjlJ-YXBoYYgSeNXIyv-28NSlMzV122mZx4jtD5KdgoKhxmXHnFVnSTMiVNdw=s800-c-k-c0x00ffffff-no-rj"
+        }
+    }
+}

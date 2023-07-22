@@ -18,6 +18,8 @@ __all__ = [
     "YouTubeChannel",
 ]
 
+from youtubeaio.types import PartMissingError
+
 T = TypeVar("T")
 
 
@@ -68,7 +70,14 @@ class YouTubeVideo(BaseModel):
     """Model representing a video."""
 
     video_id: str = Field(..., alias="id")
-    snippet: YouTubeVideoSnippet | None = None
+    nullable_snippet: YouTubeVideoSnippet | None = Field(None, alias="snippet")
+
+    @property
+    def snippet(self) -> YouTubeVideoSnippet:
+        """Return snippet."""
+        if self.nullable_snippet is None:
+            raise PartMissingError
+        return self.nullable_snippet
 
 
 class YouTubeChannelThumbnails(BaseModel):
@@ -125,17 +134,41 @@ class YouTubeChannel(BaseModel):
     """Model representing a YouTube channel."""
 
     channel_id: str = Field(..., alias="id")
-    snippet: YouTubeChannelSnippet | None = None
-    content_details: YouTubeChannelContentDetails | None = Field(
+    nullable_snippet: YouTubeChannelSnippet | None = Field(None, alias="snippet")
+    nullable_content_details: YouTubeChannelContentDetails | None = Field(
         None,
         alias="contentDetails",
     )
-    statistics: YouTubeChannelStatistics | None = None
+    nullable_statistics: YouTubeChannelStatistics | None = Field(
+        None,
+        alias="statistics",
+    )
 
     @property
     def upload_playlist_id(self) -> str:
         """Return playlist id with uploads from channel."""
         return str(self.channel_id).replace("UC", "UU", 1)
+
+    @property
+    def snippet(self) -> YouTubeChannelSnippet:
+        """Return snippet."""
+        if self.nullable_snippet is None:
+            raise PartMissingError
+        return self.nullable_snippet
+
+    @property
+    def content_details(self) -> YouTubeChannelContentDetails:
+        """Return content details."""
+        if self.nullable_content_details is None:
+            raise PartMissingError
+        return self.nullable_content_details
+
+    @property
+    def statistics(self) -> YouTubeChannelStatistics:
+        """Return statistics."""
+        if self.nullable_statistics is None:
+            raise PartMissingError
+        return self.nullable_statistics
 
 
 class YouTubeSubscriptionSnippet(BaseModel):
@@ -156,7 +189,14 @@ class YouTubeSubscription(BaseModel):
     """Model representing a YouTube subscription."""
 
     subscription_id: str = Field(..., alias="id")
-    snippet: YouTubeSubscriptionSnippet | None = None
+    nullable_snippet: YouTubeSubscriptionSnippet | None = Field(None, alias="snippet")
+
+    @property
+    def snippet(self) -> YouTubeSubscriptionSnippet:
+        """Return snippet."""
+        if self.nullable_snippet is None:
+            raise PartMissingError
+        return self.nullable_snippet
 
 
 class YouTubePlaylistItemSnippet(BaseModel):
@@ -179,8 +219,22 @@ class YouTubePlaylistItem(BaseModel):
     """Model representing a YouTube playlist item."""
 
     playlist_item_id: str = Field(..., alias="id")
-    snippet: YouTubePlaylistItemSnippet | None = Field(None)
-    content_details: YouTubePlaylistItemContentDetails | None = Field(
+    nullable_snippet: YouTubePlaylistItemSnippet | None = Field(None, alias="snippet")
+    nullable_content_details: YouTubePlaylistItemContentDetails | None = Field(
         None,
         alias="contentDetails",
     )
+
+    @property
+    def snippet(self) -> YouTubePlaylistItemSnippet:
+        """Return snippet."""
+        if self.nullable_snippet is None:
+            raise PartMissingError
+        return self.nullable_snippet
+
+    @property
+    def content_details(self) -> YouTubePlaylistItemContentDetails:
+        """Return content details."""
+        if self.nullable_content_details is None:
+            raise PartMissingError
+        return self.nullable_content_details

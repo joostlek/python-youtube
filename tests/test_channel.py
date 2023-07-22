@@ -1,4 +1,5 @@
 """Tests for the YouTube client."""
+import json
 from datetime import datetime, timezone
 
 import aiohttp
@@ -6,9 +7,10 @@ import pytest
 from aresponses import ResponsesMockServer
 
 from youtubeaio.models import YouTubeChannelThumbnails
+from youtubeaio.types import PartMissingError
 from youtubeaio.youtube import YouTube
 
-from . import load_fixture
+from . import construct_fixture, load_fixture
 from .const import YOUTUBE_URL
 from .helper import get_thumbnail
 
@@ -121,3 +123,58 @@ async def test_get_hq_thumbnail(
 ) -> None:
     """Check if the highest quality thumbnail is returned."""
     assert thumbnails.get_highest_quality().url == result_url
+
+
+async def test_nullable_fields(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Check if the fields exist when they are filled."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/channels",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=json.dumps(
+                construct_fixture(
+                    "channel",
+                    ["snippet", "contentDetails", "statistics"],
+                    1,
+                ),
+            ),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        async for subscription in youtube.get_user_channels():
+            assert subscription
+            assert subscription.snippet
+            assert subscription.content_details
+            assert subscription.statistics
+
+
+async def test_nullable_fields_null(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Check if an error is thrown if a non-requested part is accessed."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/channels",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=json.dumps(construct_fixture("channel", [], 1)),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        async for subscription in youtube.get_user_channels():
+            assert subscription
+            with pytest.raises(PartMissingError):
+                assert subscription.snippet
+            with pytest.raises(PartMissingError):
+                assert subscription.content_details
+            with pytest.raises(PartMissingError):
+                assert subscription.statistics

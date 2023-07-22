@@ -1,0 +1,42 @@
+{
+    "publishedAt": "2023-07-21T19:00:27Z",
+    "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+    "title": "Unleash Your Web Development Potential with dval.dev",
+    "description": "Website → https://dval.dev\n\nDiscover dval.dev, a resource to unlock your web development potential. Join Dan Valinotti as he shares inspiring insights, expert tips, and showcases his captivating portfolio. Dive into the world of web components, JavaScript, and more to gain the inspiration you need for your own projects.\n\n#MyDomain is a series from Google Registry where website creators share the stories behind their domain names, as well as website-building tips. Stay tuned for more episodes.\n\nGet your .app website: https://get.dev\n#MyDomain playlist → https://goo.gle/MyDomain\n\nSubscribe → https://goo.gle/developers",
+    "thumbnails": {
+        "default": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/default.jpg",
+            "width": 120,
+            "height": 90
+        },
+        "medium": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+        },
+        "high": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+        },
+        "standard": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+        },
+        "maxres": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+        }
+    },
+    "channelTitle": "Google for Developers",
+    "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+    "position": 0,
+    "resourceId": {
+        "kind": "youtube#video",
+        "videoId": "UZ4n1n13crI"
+    },
+    "videoOwnerChannelTitle": "Google for Developers",
+    "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+}
