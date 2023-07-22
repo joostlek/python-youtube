@@ -1,4 +1,5 @@
 """Tests for the YouTube client."""
+import json
 from datetime import datetime, timezone
 
 import aiohttp
@@ -8,9 +9,10 @@ from aresponses import Response, ResponsesMockServer
 
 from youtubeaio.helper import first
 from youtubeaio.models import YouTubeVideoThumbnails
+from youtubeaio.types import PartMissingError
 from youtubeaio.youtube import YouTube
 
-from . import load_fixture
+from . import construct_fixture, load_fixture
 from .const import YOUTUBE_URL
 from .helper import get_thumbnail
 
@@ -241,3 +243,46 @@ async def test_get_hq_thumbnail(
 ) -> None:
     """Check if the highest quality thumbnail is returned."""
     assert thumbnails.get_highest_quality().url == result_url
+
+
+async def test_nullable_fields(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Check if the fields exist when they are filled."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=json.dumps(construct_fixture("video", ["snippet"], 1)),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        video = await youtube.get_video(video_id="V4DDt30Aat4")
+        assert video
+        assert video.snippet.channel_id == "UCAuUUnT6oDeKwE6v1NGQxug"
+
+
+async def test_nullable_fields_null(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Check if an error is thrown if a non-requested part is accessed."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=json.dumps(construct_fixture("video", [], 1)),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        video = await youtube.get_video(video_id="V4DDt30Aat4")
+        assert video
+        with pytest.raises(PartMissingError):
+            assert video.snippet.thumbnails

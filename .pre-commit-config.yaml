@@ -76,7 +76,7 @@ repos:
         language: system
         types: [text]
         exclude: ^poetry\.lock$
-        entry: poetry run codespell
+        entry: poetry run codespell --skip="./.*,*.csv,*.json"
       - id: detect-private-key
         name: 🕵️  Detect Private Keys
         language: system

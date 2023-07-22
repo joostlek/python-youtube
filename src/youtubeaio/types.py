@@ -59,6 +59,10 @@ class YouTubeBackendError(YouTubeAPIError):
     """When the YouTube API itself is down."""
 
 
+class PartMissingError(YouTubeAPIError):
+    """If you request a part which is not requested."""
+
+
 class MissingAppSecretError(YouTubeAPIError):
     """When the app secret is not set but app authorization is attempted."""
 
