@@ -57,6 +57,8 @@ class YouTube:
         """Initialize YouTube object."""
         self.session = session
         self.session_timeout = session_timeout
+        self.app_id = app_id
+        self.app_secret = app_secret
         if auto_refresh_auth is None:
             self.auto_refresh_auth = app_id is not None and app_secret is not None
         else:
