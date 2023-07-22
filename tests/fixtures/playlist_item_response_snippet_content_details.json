@@ -1,0 +1,265 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "ymk0VS6i1mVdlljgcX3cnxScdhU",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "H3SdsdssTDmYJkvgC4rOsXsq_nY",
+      "id": "VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3LlVaNG4xbjEzY3JJ",
+      "snippet": {
+        "publishedAt": "2023-07-21T19:00:27Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Unleash Your Web Development Potential with dval.dev",
+        "description": "Website → https://dval.dev\n\nDiscover dval.dev, a resource to unlock your web development potential. Join Dan Valinotti as he shares inspiring insights, expert tips, and showcases his captivating portfolio. Dive into the world of web components, JavaScript, and more to gain the inspiration you need for your own projects.\n\n#MyDomain is a series from Google Registry where website creators share the stories behind their domain names, as well as website-building tips. Stay tuned for more episodes.\n\nGet your .app website: https://get.dev\n#MyDomain playlist → https://goo.gle/MyDomain\n\nSubscribe → https://goo.gle/developers",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UZ4n1n13crI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google for Developers",
+        "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "UZ4n1n13crI"
+        },
+        "videoOwnerChannelTitle": "Google for Developers",
+        "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+      },
+      "contentDetails": {
+        "videoId": "UZ4n1n13crI",
+        "videoPublishedAt": "2023-07-21T19:00:27Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "uVfC4v2s8ojCfH8ei695bB_m8WU",
+      "id": "VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3Lmd3QTBUcVNONmxn",
+      "snippet": {
+        "publishedAt": "2023-07-21T19:00:15Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Learn How to Supercharge Your Last.fm Developer Experience with Finale.app",
+        "description": "Website →https:/finale.app \n\nDiscover Finale.app, a Last.fm client developed by Noa Rubin. Track your music listening habits and unlock detailed statistics like never before. With exclusive features such as multi-source logging and the ability to create stunning collages of your top songs, artists, and albums, Finale takes your Last.fm experience to the next level. In this #MyDomain episode, uncover the story behind the name as Finale represents its musical roots and being the ultimate Last.fm client.\n\n\n#MyDomain is a series from Google Registry where website creators share the stories behind their domain names, as well as website-building tips. Stay tuned for more episodes.\n\nGet your .app website: https://get.app\n#MyDomain playlist → https://goo.gle/MyDomain\n\nSubscribe → https://goo.gle/developers",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/gwA0TqSN6lg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/gwA0TqSN6lg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/gwA0TqSN6lg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/gwA0TqSN6lg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/gwA0TqSN6lg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google for Developers",
+        "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "gwA0TqSN6lg"
+        },
+        "videoOwnerChannelTitle": "Google for Developers",
+        "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+      },
+      "contentDetails": {
+        "videoId": "gwA0TqSN6lg",
+        "videoPublishedAt": "2023-07-21T19:00:15Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "BQMpEaUTP5kL9Wa_kTh9QJYcn4k",
+      "id": "VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3LmJiV1V3UEhuQlRj",
+      "snippet": {
+        "publishedAt": "2023-07-20T21:00:30Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "What tools make it easier for devs to develop?",
+        "description": "Watch this video for developer tips and tricks that can make your projects easier and fun!\n\nSubscribe to Google Developers → https://goo.gle/developers \n\n#streetinterviews   #developers",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bbWUwPHnBTc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bbWUwPHnBTc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bbWUwPHnBTc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/bbWUwPHnBTc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/bbWUwPHnBTc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google for Developers",
+        "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "bbWUwPHnBTc"
+        },
+        "videoOwnerChannelTitle": "Google for Developers",
+        "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+      },
+      "contentDetails": {
+        "videoId": "bbWUwPHnBTc",
+        "videoPublishedAt": "2023-07-20T21:00:30Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "YNIS7l0t5fF1qcSbThewbKZI4Ac",
+      "id": "VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3LmRka0l0X3NXOGJv",
+      "snippet": {
+        "publishedAt": "2023-07-20T15:00:28Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Writing IOS and Android apps simultaneously?",
+        "description": "We’ve all been there. You write one app for one operating system only to find out you need to write it for another. Watch this short to see how you can develop for Android and IOS simultaneously with Flutter. \n\nWatch more episodes of GDE Secrets → https://goo.gle/3Di2Olg \nSubscribe to Google Developers → https://goo.gle/developers \n\n#GDESecrets",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ddkIt_sW8bo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ddkIt_sW8bo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ddkIt_sW8bo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ddkIt_sW8bo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ddkIt_sW8bo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google for Developers",
+        "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ddkIt_sW8bo"
+        },
+        "videoOwnerChannelTitle": "Google for Developers",
+        "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+      },
+      "contentDetails": {
+        "videoId": "ddkIt_sW8bo",
+        "videoPublishedAt": "2023-07-20T15:00:28Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "CQPbyZ8zzkvPaimscUGyLnI7XMA",
+      "id": "VVVfeDVYRzFPVjJQNnVaWjVGU005VHR3LlNaLTROSFhTb0JJ",
+      "snippet": {
+        "publishedAt": "2023-07-18T21:00:17Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "What tips would you give to new dev?",
+        "description": "So, you want to be a dev, huh? When you’re first starting out, it’s nice to hear what elder developers have to say and what advice they would give to a newcomer in our community. \n\nSubscribe to Google Developers → https://goo.gle/developers \n\n#streetInterviews  #developers",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/SZ-4NHXSoBI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/SZ-4NHXSoBI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/SZ-4NHXSoBI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/SZ-4NHXSoBI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/SZ-4NHXSoBI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google for Developers",
+        "playlistId": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "SZ-4NHXSoBI"
+        },
+        "videoOwnerChannelTitle": "Google for Developers",
+        "videoOwnerChannelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+      },
+      "contentDetails": {
+        "videoId": "SZ-4NHXSoBI",
+        "videoPublishedAt": "2023-07-18T21:00:17Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 5783,
+    "resultsPerPage": 5
+  }
+}
