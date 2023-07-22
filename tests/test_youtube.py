@@ -7,6 +7,7 @@ from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
 from youtubeaio.types import (
+    UnauthorizedError,
     YouTubeAPIError,
     YouTubeBackendError,
     YouTubeResourceNotFoundError,
@@ -162,5 +163,27 @@ async def test_bad_request(
     async with aiohttp.ClientSession() as session:
         youtube = YouTube(session=session)
         with pytest.raises(YouTubeAPIError):
+            await youtube.get_video(video_id="Ks-_Mh1QhMc")
+        await youtube.close()
+
+
+async def test_unauthorized(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test handling being unauthorized."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=401,
+            headers={"Content-Type": "application/json"},
+            text='{"message":"Something went wrong"}',
+        ),
+    )
+
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        with pytest.raises(UnauthorizedError):
             await youtube.get_video(video_id="Ks-_Mh1QhMc")
         await youtube.close()

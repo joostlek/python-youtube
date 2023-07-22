@@ -6,7 +6,7 @@ from logging import getLogger
 from typing import Any, TypeVar
 
 import async_timeout
-from aiohttp import ClientResponse, ClientSession
+from aiohttp import ClientError, ClientResponse, ClientSession
 
 from youtubeaio.helper import (
     build_url,
@@ -16,6 +16,7 @@ from youtubeaio.models import YouTubeVideo
 from youtubeaio.types import (
     AuthScope,
     MissingScopeError,
+    UnauthorizedError,
     YouTubeAPIError,
     YouTubeBackendError,
     YouTubeResourceNotFoundError,
@@ -76,8 +77,13 @@ class YouTube:
             )
         if response.status == 404:
             raise YouTubeResourceNotFoundError
+        if response.status == 401:
+            raise UnauthorizedError
         if 400 <= response.status < 500:
-            raise YouTubeAPIError
+            try:
+                response.raise_for_status()
+            except ClientError as exc:
+                raise YouTubeAPIError from exc
         return response
 
     async def _api_get_request(
