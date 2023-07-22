@@ -102,6 +102,15 @@ class YouTubeChannelContentDetails(BaseModel):
     )
 
 
+class YouTubeChannelStatistics(BaseModel):
+    """Model representing statistics of a channel."""
+
+    view_count: int = Field(..., alias="viewCount")
+    subscriber_count: int = Field(..., alias="subscriberCount")
+    subscriber_count_hidden: bool = Field(..., alias="hiddenSubscriberCount")
+    video_count: int = Field(..., alias="videoCount")
+
+
 class YouTubeChannelSnippet(BaseModel):
     """Model representing channel snippet."""
 
@@ -121,6 +130,7 @@ class YouTubeChannel(BaseModel):
         None,
         alias="contentDetails",
     )
+    statistics: YouTubeChannelStatistics | None = None
 
     @property
     def upload_playlist_id(self) -> str:

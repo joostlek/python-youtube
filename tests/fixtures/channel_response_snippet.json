@@ -1,6 +1,6 @@
 {
   "kind": "youtube#channelListResponse",
-  "etag": "sM5ffk5W79swi2V870w6CmMlPgs",
+  "etag": "9sIVzjSfOfk6gN357UcUDTWRTec",
   "pageInfo": {
     "totalResults": 1,
     "resultsPerPage": 5
@@ -8,7 +8,7 @@
   "items": [
     {
       "kind": "youtube#channel",
-      "etag": "ieb4dig-VKDKW3FEut81IwUEiog",
+      "etag": "veRvdNDE9HmhyENPqeFNq-VH6NI",
       "id": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
       "snippet": {
         "title": "Google for Developers",
@@ -37,6 +37,12 @@
           "description": "Subscribe to join a community of creative developers and learn the latest in Google technology — from AI and cloud, to mobile and web.\n\nExplore more at developers.google.com\n\n"
         },
         "country": "US"
+      },
+      "statistics": {
+        "viewCount": "234084903",
+        "subscriberCount": "2300000",
+        "hiddenSubscriberCount": false,
+        "videoCount": "5783"
       }
     }
   ]
