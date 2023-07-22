@@ -29,7 +29,7 @@ async def test_fetch_video(
         ),
     )
     async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session, app_id="asd")
+        youtube = YouTube(session=session)
         video = await youtube.get_video(video_id="Ks-_Mh1QhMc")
         assert video
         assert video.snippet
@@ -128,7 +128,7 @@ async def test_fetch_videos(
         repeat=2,
     )
     async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session, app_id="asd")
+        youtube = YouTube(session=session)
         videos = youtube.get_videos(
             video_ids=["Ks-_Mh1QhMc", "GvgqDSnpRQM", "V4DDt30Aat4"],
         )
@@ -143,8 +143,34 @@ async def test_fetch_videos(
         assert video3.video_id == "V4DDt30Aat4"
 
 
+async def test_fetch_single_page_video(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test retrieving a page of videos."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=load_fixture("video_response_2.json"),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        videos = youtube.get_videos(
+            video_ids=["V4DDt30Aat4"],
+        )
+        video3 = await videos.__anext__()
+        assert video3
+        assert video3.video_id == "V4DDt30Aat4"
+        with pytest.raises(StopAsyncIteration):
+            await videos.__anext__()
+
+
 async def test_fetch_no_videos() -> None:
     """Test retrieving no videos."""
-    youtube = YouTube(app_id="asd")
+    youtube = YouTube()
     with pytest.raises(ValueError):
         await first(youtube.get_videos(video_ids=[]))

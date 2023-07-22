@@ -33,6 +33,8 @@ async def refresh_access_token(
         "client_id": app_id,
         "grant_type": "refresh_token",
         "client_secret": app_secret,
+        "access_type": "offline",
+        "prompt": "consent",
     }
     url = build_url(YOUTUBE_AUTH_TOKEN_URL, {})
     ses = session if session is not None else aiohttp.ClientSession()
@@ -40,8 +42,8 @@ async def refresh_access_token(
         data = await result.json()
     if session is None:
         await ses.close()
-    if data.get("status", 200) == 400:
-        raise InvalidRefreshTokenError(data.get("message", ""))
-    if data.get("status", 200) == 401:
-        raise UnauthorizedError(data.get("message", ""))
-    return data["access_token"], data["refresh_token"]
+    if result.status == 400:
+        raise InvalidRefreshTokenError(data.get("error", ""))
+    if result.status == 401:
+        raise UnauthorizedError(data.get("error", ""))
+    return data["access_token"], refresh_token

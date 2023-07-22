@@ -1,9 +1,11 @@
 """Tests for the helper module."""
 from collections.abc import AsyncGenerator
+from typing import Any
 
 import pytest
 
-from async_python_youtube.helper import chunk, first, limit
+from async_python_youtube.helper import build_scope, build_url, chunk, first, limit
+from async_python_youtube.types import AuthScope
 
 
 async def _generator(amount: int) -> AsyncGenerator[int, None]:
@@ -43,3 +45,95 @@ async def test_limit_invalid_value() -> None:
     """Test if the limit method works."""
     with pytest.raises(ValueError):
         await limit(_generator(10), 0).__anext__()
+
+
+async def test_build_scope() -> None:
+    """Test build scope."""
+    assert (
+        build_scope([AuthScope.READ_ONLY, AuthScope.MANAGE])
+        == "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube"
+    )
+
+
+@pytest.mark.parametrize(
+    ("params", "remove_none", "split_lists", "enum_value", "result"),
+    [
+        (
+            {
+                "hello": None,
+            },
+            True,
+            True,
+            True,
+            "asd.com",
+        ),
+        (
+            {
+                "hello": None,
+            },
+            False,
+            True,
+            True,
+            "asd.com?hello",
+        ),
+        (
+            {
+                "hello": [
+                    "yes",
+                    "no",
+                ],
+            },
+            False,
+            True,
+            True,
+            "asd.com?hello=yes&hello=no",
+        ),
+        (
+            {
+                "hello": [
+                    "yes",
+                    "no",
+                ],
+            },
+            False,
+            False,
+            True,
+            "asd.com?hello=%5B%27yes%27%2C%20%27no%27%5D",
+        ),
+        (
+            {
+                "hello": AuthScope.MANAGE,
+            },
+            False,
+            True,
+            True,
+            "asd.com?hello=https%3A//www.googleapis.com/auth/youtube",
+        ),
+        (
+            {
+                "hello": AuthScope.MANAGE,
+            },
+            False,
+            False,
+            False,
+            "asd.com?hello=AuthScope.MANAGE",
+        ),
+    ],
+    ids=[
+        "None value removed",
+        "None value",
+        "Split list",
+        "Non split list",
+        "Enum value",
+        "Non enum value",
+    ],
+)
+async def test_build_url(
+    params: dict[str, Any],
+    remove_none: bool,
+    split_lists: bool,
+    enum_value: bool,
+    result: str,
+) -> None:
+    """Test build url."""
+    assert build_url("asd.com", params, remove_none, split_lists, enum_value) == result

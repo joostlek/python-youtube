@@ -9,18 +9,14 @@ import async_timeout
 from aiohttp import ClientResponse, ClientSession
 
 from async_python_youtube.helper import (
-    YOUTUBE_AUTH_TOKEN_URL,
-    build_scope,
     build_url,
     first,
 )
 from async_python_youtube.models import YouTubeVideo
 from async_python_youtube.types import (
     AuthScope,
-    MissingAppSecretError,
     MissingScopeError,
     YouTubeAPIError,
-    YouTubeAuthorizationError,
     YouTubeBackendError,
     YouTubeResourceNotFoundError,
 )
@@ -39,31 +35,26 @@ class YouTube:
 
     logger = getLogger(__name__)
 
-    _app_auth_token: str | None = None
-    _app_auth_scopes: list[AuthScope] = field(default_factory=list)
-    _has_app_auth = False
     _user_auth_token: str | None = None
     _user_auth_refresh_token: str | None = None
     _user_auth_scopes: list[AuthScope] = field(default_factory=list)
     _has_user_auth = False
-    auto_refresh_auth = True
 
     def __init__(
         self,
-        app_id: str,
+        app_id: str | None = None,
         app_secret: str | None = None,
-        authenticate_app: bool = True,
-        target_app_auth_scope: list[AuthScope] | None = None,
         session: ClientSession | None = None,
         session_timeout: int = 10,
+        auto_refresh_auth: bool | None = None,
     ) -> None:
         """Initialize YouTube object."""
         self.session = session
         self.session_timeout = session_timeout
-        self.app_id = app_id
-        self.app_secret = app_secret
-        self._authenticate_app = authenticate_app
-        self._target_app_scope = target_app_auth_scope
+        if auto_refresh_auth is None:
+            self.auto_refresh_auth = app_id is not None and app_secret is not None
+        else:
+            self.auto_refresh_auth = auto_refresh_auth
         self._r_lookup: dict[
             str,
             Callable[
@@ -109,13 +100,9 @@ class YouTube:
         return_type: T,
         body_data: dict[str, Any] | None = None,
         split_lists: bool = False,
-        error_handler: dict[int, BaseException] | None = None,
     ) -> AsyncGenerator[T, None]:
-        method = self._r_lookup.get(req.lower())
-        if method is None:
-            msg = "HTTP method not found"
-            raise YouTubeAPIError(msg)
-        _after = url_params.get("after")
+        method = self._r_lookup.get(req.lower(), self._api_get_request)
+        _after = url_params.get("nextPageToken")
         _first = True
         if not self.session:
             self.session = ClientSession()
@@ -131,8 +118,6 @@ class YouTube:
                 )
                 async with async_timeout.timeout(self.session_timeout):
                     response = await method(self.session, _url, body_data)
-                if error_handler is not None and response.status in error_handler:
-                    raise error_handler[response.status]
                 if response.content_type != "application/json":
                     msg = "Unexpected response type"
                     raise YouTubeAPIError(msg)
@@ -144,56 +129,6 @@ class YouTube:
         except asyncio.TimeoutError as exc:
             msg = "Timeout occurred"
             raise YouTubeAPIError(msg) from exc
-
-    async def _generate_app_token(self) -> None:
-        if self.app_secret is None:
-            raise MissingAppSecretError
-        params = {
-            "client_id": self.app_id,
-            "client_secret": self.app_secret,
-            "grant_type": "client_credentials",
-            "scope": build_scope(self._app_auth_scopes),
-        }
-        self.logger.debug("generating fresh app token")
-        url = build_url(YOUTUBE_AUTH_TOKEN_URL, params)
-        async with async_timeout.timeout(
-            self.session_timeout,
-        ), ClientSession() as session:
-            result = await session.post(url)
-        if result.status != 200:
-            msg = f"Authentication failed with code {result.status} ({result.text})"
-            raise YouTubeAuthorizationError(msg)
-        try:
-            data = await result.json()
-            self._app_auth_token = data["access_token"]
-        except ValueError as exc:
-            msg = "Authentication response did not have a valid json body"
-            raise YouTubeAuthorizationError(msg) from exc
-        except KeyError as exc:
-            msg = "Authentication response did not contain access_token"
-            raise YouTubeAuthorizationError(msg) from exc
-
-    async def authenticate_app(self, scopes: list[AuthScope]) -> None:
-        """Authenticate with a fresh generated app token.
-
-        :param scopes: List of Authorization scopes to use
-        :raises ~async_python_youtube.types.YouTubeAuthorizationException:
-        if the authentication fails
-        :return: None
-        """
-        self._app_auth_scopes = scopes
-        await self._generate_app_token()
-        self._has_app_auth = True
-
-    async def set_app_authentication(self, token: str, scopes: list[AuthScope]) -> None:
-        """Set an app token, most likely only used for testing purposes.
-
-        :param token: the app token
-        :param scopes: List of Authorization scopes that the given app token has
-        """
-        self._app_auth_token = token
-        self._app_auth_scopes = scopes
-        self._has_app_auth = True
 
     async def set_user_authentication(
         self,
@@ -217,7 +152,7 @@ class YouTube:
         if refresh_token is None and self.auto_refresh_auth:
             msg = "refresh_token has to be provided when auto_refresh_auth is True"
             raise ValueError(msg)
-        if scopes is None:
+        if not scopes:
             msg = "scope was not provided"
             raise MissingScopeError(msg)
 
@@ -225,13 +160,6 @@ class YouTube:
         self._user_auth_refresh_token = refresh_token
         self._user_auth_scopes = scopes
         self._has_user_auth = True
-
-    def get_app_token(self) -> str | None:
-        """Return the app token that the api uses or None when not authenticated.
-
-        :return: app token
-        """
-        return self._app_auth_token
 
     def get_user_auth_token(self) -> str | None:
         """Return the current user auth token, None if no user Authentication is set.
