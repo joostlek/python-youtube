@@ -33,10 +33,17 @@ class YouTubeVideoThumbnails(BaseModel):
     """Model representing video thumbnails."""
 
     default: YouTubeThumbnail = Field(...)
-    medium: YouTubeThumbnail = Field(...)
-    high: YouTubeThumbnail = Field(...)
-    standard: YouTubeThumbnail = Field(...)
+    medium: YouTubeThumbnail | None = Field(None)
+    high: YouTubeThumbnail | None = Field(None)
+    standard: YouTubeThumbnail | None = Field(None)
     maxres: YouTubeThumbnail | None = Field(None)
+
+    def get_highest_quality(self) -> YouTubeThumbnail:
+        """Return the highest quality thumbnail."""
+        for size in (self.maxres, self.standard, self.high, self.medium):
+            if size is not None:
+                return size
+        return self.default
 
 
 class YouTubeVideoSnippet(BaseModel):
@@ -68,8 +75,15 @@ class YouTubeChannelThumbnails(BaseModel):
     """Model representing channel thumbnails."""
 
     default: YouTubeThumbnail = Field(...)
-    medium: YouTubeThumbnail = Field(...)
-    high: YouTubeThumbnail = Field(...)
+    medium: YouTubeThumbnail | None = Field(None)
+    high: YouTubeThumbnail | None = Field(None)
+
+    def get_highest_quality(self) -> YouTubeThumbnail:
+        """Return the highest quality thumbnail."""
+        for size in (self.high, self.medium):
+            if size is not None:
+                return size
+        return self.default
 
 
 class YouTubeChannelRelatedPlaylists(BaseModel):
