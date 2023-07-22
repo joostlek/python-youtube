@@ -4,8 +4,8 @@ from typing import Any
 
 import pytest
 
-from async_python_youtube.helper import build_scope, build_url, chunk, first, limit
-from async_python_youtube.types import AuthScope
+from youtubeaio.helper import build_scope, build_url, chunk, first, limit
+from youtubeaio.types import AuthScope
 
 
 async def _generator(amount: int) -> AsyncGenerator[int, None]:

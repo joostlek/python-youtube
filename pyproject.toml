@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "async_python_youtube"
+name = "youtubeaio"
 version = "0.0.0"
 description = "Asynchronous Python client for YouTube V3 API."
 authors = ["Joost Lekkerkerker <joostlek@outlook.com>"]
@@ -21,7 +21,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
-    { include = "async_python_youtube", from = "src" },
+    { include = "youtubeaio", from = "src" },
 ]
 
 [tool.poetry.dependencies]
@@ -57,7 +57,7 @@ show_missing = true
 
 [tool.coverage.run]
 plugins = ["covdefaults"]
-source = ["async_python_youtube"]
+source = ["youtubeaio"]
 
 [tool.mypy]
 # Specify the target platform details in config, so your developers are
@@ -146,7 +146,7 @@ ignore = [
   "D417", # False positives in some occasions
   "PLR2004", # Just annoying, not really useful
   "TCH001",
-  "SLOT000",
+  "TRY301",
   "FBT001", # Boolean positional arg
   "FBT002", # Boolean default arg
   "PLR0913", # A lot of arguments
@@ -158,7 +158,7 @@ fixture-parentheses = false
 mark-parentheses = false
 
 [tool.ruff.isort]
-known-first-party = ["async_python_youtube"]
+known-first-party = ["youtubeaio"]
 
 [tool.ruff.mccabe]
 max-complexity = 25
