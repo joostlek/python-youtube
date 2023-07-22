@@ -12,7 +12,7 @@ from youtubeaio.helper import (
     build_url,
     first,
 )
-from youtubeaio.models import YouTubeVideo
+from youtubeaio.models import YouTubeChannel, YouTubeVideo
 from youtubeaio.types import (
     AuthScope,
     MissingScopeError,
@@ -191,13 +191,46 @@ class YouTube:
             "videos",
             param,
             YouTubeVideo,
-            split_lists=True,
         ):
             yield item  # type: ignore[misc]
 
     async def get_video(self, video_id: str) -> YouTubeVideo | None:
         """Get a single video."""
         return await first(self.get_videos([video_id]))
+
+    async def _get_channels(
+        self,
+        param: dict[str, Any],
+    ) -> AsyncGenerator[YouTubeChannel, None]:
+        """Get channels."""
+        async for item in self._build_generator(
+            "GET",
+            "channels",
+            param,
+            YouTubeChannel,
+        ):
+            yield item  # type: ignore[misc]
+
+    async def get_user_channels(self) -> AsyncGenerator[YouTubeChannel, None]:
+        """Return channels owned by the authenticated user."""
+        param = {
+            "part": "snippet",
+            "mine": "true",
+        }
+        async for item in self._get_channels(param):
+            yield item
+
+    async def get_channels(
+        self,
+        channel_ids: list[str],
+    ) -> AsyncGenerator[YouTubeChannel, None]:
+        """Return list of channels."""
+        param = {
+            "part": "snippet",
+            "id": channel_ids,
+        }
+        async for item in self._get_channels(param):
+            yield item
 
     async def close(self) -> None:
         """Close open client session."""
