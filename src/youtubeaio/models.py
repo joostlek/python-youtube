@@ -133,3 +133,30 @@ class YouTubeSubscription(BaseModel):
 
     subscription_id: str = Field(..., alias="id")
     snippet: YouTubeSubscriptionSnippet | None = None
+
+
+class YouTubePlaylistItemSnippet(BaseModel):
+    """Model representing a YouTube playlist item snippet."""
+
+    added_at: datetime = Field(..., alias="publishedAt")
+    title: str = Field(...)
+    description: str = Field(...)
+    thumbnails: YouTubeVideoThumbnails = Field(...)
+    playlist_id: str = Field(..., alias="playlistId")
+
+
+class YouTubePlaylistItemContentDetails(BaseModel):
+    """Model representing a YouTube playlist item content details."""
+
+    video_id: str = Field(..., alias="videoId")
+
+
+class YouTubePlaylistItem(BaseModel):
+    """Model representing a YouTube playlist item."""
+
+    playlist_item_id: str = Field(..., alias="id")
+    snippet: YouTubePlaylistItemSnippet | None = Field(None)
+    content_details: YouTubePlaylistItemContentDetails | None = Field(
+        None,
+        alias="contentDetails",
+    )

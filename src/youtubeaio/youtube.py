@@ -12,7 +12,12 @@ from youtubeaio.helper import (
     build_url,
     first,
 )
-from youtubeaio.models import YouTubeChannel, YouTubeSubscription, YouTubeVideo
+from youtubeaio.models import (
+    YouTubeChannel,
+    YouTubePlaylistItem,
+    YouTubeSubscription,
+    YouTubeVideo,
+)
 from youtubeaio.types import (
     AuthScope,
     MissingScopeError,
@@ -245,6 +250,25 @@ class YouTube:
             "subscriptions",
             param,
             YouTubeSubscription,
+        ):
+            yield item  # type: ignore[misc]
+
+    async def get_playlist_items(
+        self,
+        playlist_id: str,
+        max_results: int = 50,
+    ) -> AsyncGenerator[YouTubePlaylistItem, None]:
+        """Get playlist by id."""
+        param = {
+            "part": "snippet,contentDetails",
+            "playlistId": playlist_id,
+            "maxResults": max_results,
+        }
+        async for item in self._build_generator(
+            "GET",
+            "playlistItems",
+            param,
+            YouTubePlaylistItem,
         ):
             yield item  # type: ignore[misc]
 
