@@ -9,7 +9,7 @@ from async_python_youtube.const import LiveBroadcastContent
 T = TypeVar("T")
 
 
-class YouTubeVideoThumbnail(BaseModel):
+class YouTubeThumbnail(BaseModel):
     """Model representing a video thumbnail."""
 
     url: str = Field(...)
@@ -20,11 +20,11 @@ class YouTubeVideoThumbnail(BaseModel):
 class YouTubeVideoThumbnails(BaseModel):
     """Model representing video thumbnails."""
 
-    default: YouTubeVideoThumbnail = Field(...)
-    medium: YouTubeVideoThumbnail = Field(...)
-    high: YouTubeVideoThumbnail = Field(...)
-    standard: YouTubeVideoThumbnail = Field(...)
-    maxres: YouTubeVideoThumbnail | None = Field(None)
+    default: YouTubeThumbnail = Field(...)
+    medium: YouTubeThumbnail = Field(...)
+    high: YouTubeThumbnail = Field(...)
+    standard: YouTubeThumbnail = Field(...)
+    maxres: YouTubeThumbnail | None = Field(None)
 
 
 class YouTubeVideoSnippet(BaseModel):
@@ -36,7 +36,7 @@ class YouTubeVideoSnippet(BaseModel):
     description: str = Field(...)
     thumbnails: YouTubeVideoThumbnails = Field(...)
     channel_title: str = Field(..., alias="channelTitle")
-    tags: list[str] = Field(...)
+    tags: list[str] = Field([])
     live_broadcast_content: LiveBroadcastContent = Field(
         ...,
         alias="liveBroadcastContent",
@@ -50,3 +50,48 @@ class YouTubeVideo(BaseModel):
 
     video_id: str = Field(..., alias="id")
     snippet: YouTubeVideoSnippet | None = None
+
+
+class YouTubeChannelThumbnails(BaseModel):
+    """Model representing channel thumbnails."""
+
+    default: YouTubeThumbnail = Field(...)
+    medium: YouTubeThumbnail = Field(...)
+    high: YouTubeThumbnail = Field(...)
+
+
+class YouTubeChannelRelatedPlaylists(BaseModel):
+    """Model representing related playlists of a channel."""
+
+    likes: str = Field(...)
+    uploads: str = Field(...)
+
+
+class YouTubeChannelContentDetails(BaseModel):
+    """Model representing content details of a channel."""
+
+    related_playlists: YouTubeChannelRelatedPlaylists = Field(
+        ...,
+        alias="relatedPlaylists",
+    )
+
+
+class YouTubeChannelSnippet(BaseModel):
+    """Model representing channel snippet."""
+
+    title: str = Field(...)
+    description: str = Field(...)
+    published_at: datetime = Field(..., alias="publishedAt")
+    thumbnails: YouTubeChannelThumbnails = Field(...)
+    default_language: str | None = Field(None, alias="defaultLanguage")
+
+
+class YouTubeChannel(BaseModel):
+    """Model representing a YouTube channel."""
+
+    channel_id: str = Field(..., alias="id")
+    snippet: YouTubeChannelSnippet | None = None
+    content_details: YouTubeChannelContentDetails | None = Field(
+        None,
+        alias="contentDetails",
+    )

@@ -1,6 +1,7 @@
 {
   "kind": "youtube#videoListResponse",
   "etag": "eozK4JKrCWSJuIyOHpQFRgGZq6o",
+  "nextPageToken": "asd",
   "items": [
     {
       "kind": "youtube#video",

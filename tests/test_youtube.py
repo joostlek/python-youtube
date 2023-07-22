@@ -6,11 +6,7 @@ import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from async_python_youtube.exceptions import (
-    YouTubeConnectionError,
-    YouTubeError,
-    YouTubeNotFoundError,
-)
+from async_python_youtube.types import YouTubeAPIError, YouTubeResourceNotFoundError
 from async_python_youtube.youtube import YouTube
 
 from . import load_fixture
@@ -32,7 +28,7 @@ async def test_new_session(
             text=load_fixture("video_response_snippet.json"),
         ),
     )
-    async with YouTube() as youtube:
+    async with YouTube(app_id="abc") as youtube:
         assert not youtube.session
         await youtube.get_video(video_id="Ks-_Mh1QhMc")
         assert youtube.session
@@ -54,11 +50,10 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
         response_handler,
     )
 
-    async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session, request_timeout=1)
-        with pytest.raises(YouTubeConnectionError):
-            assert await youtube.get_video(video_id="Ks-_Mh1QhMc")
-        await youtube.close()
+    youtube = YouTube(app_id="abc", session_timeout=1)
+    with pytest.raises(YouTubeAPIError):
+        assert await youtube.get_video(video_id="Ks-_Mh1QhMc")
+    await youtube.close()
 
 
 async def test_fetch_video_not_found(
@@ -75,8 +70,8 @@ async def test_fetch_video_not_found(
         ),
     )
     async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session)
-        with pytest.raises(YouTubeNotFoundError):
+        youtube = YouTube(session=session, app_id="abc")
+        with pytest.raises(YouTubeResourceNotFoundError):
             await youtube.get_video(video_id="Ks-_Mh1QhMc")
         await youtube.close()
 
@@ -95,8 +90,8 @@ async def test_general_error_handling(
         ),
     )
     async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session)
-        with pytest.raises(YouTubeConnectionError):
+        youtube = YouTube(session=session, app_id="abc")
+        with pytest.raises(YouTubeAPIError):
             await youtube.get_video(video_id="Ks-_Mh1QhMc")
         await youtube.close()
 
@@ -117,7 +112,7 @@ async def test_unexpected_server_response(
     )
 
     async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session)
-        with pytest.raises(YouTubeError):
+        youtube = YouTube(app_id="abc", session=session)
+        with pytest.raises(YouTubeAPIError):
             await youtube.get_video(video_id="Ks-_Mh1QhMc")
         await youtube.close()
