@@ -157,7 +157,7 @@ class YouTube:
         self.logger.debug("generating fresh app token")
         url = build_url(YOUTUBE_AUTH_TOKEN_URL, params)
         async with async_timeout.timeout(
-            self.session_timeout
+            self.session_timeout,
         ), ClientSession() as session:
             result = await session.post(url)
         if result.status != 200:
