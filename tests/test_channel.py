@@ -5,10 +5,12 @@ import aiohttp
 import pytest
 from aresponses import ResponsesMockServer
 
+from youtubeaio.models import YouTubeChannelThumbnails
 from youtubeaio.youtube import YouTube
 
 from . import load_fixture
 from .const import YOUTUBE_URL
+from .helper import get_thumbnail
 
 
 async def test_fetch_channel(
@@ -82,3 +84,40 @@ async def test_fetch_own_channel(
         with pytest.raises(StopAsyncIteration):
             await channel_generator.__anext__()
         await youtube.close()
+
+
+@pytest.mark.parametrize(
+    ("thumbnails", "result_url"),
+    [
+        (
+            YouTubeChannelThumbnails(
+                high=get_thumbnail("high"),
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "high",
+        ),
+        (
+            YouTubeChannelThumbnails(
+                high=None,
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "medium",
+        ),
+        (
+            YouTubeChannelThumbnails(
+                high=None,
+                medium=None,
+                default=get_thumbnail("default"),
+            ),
+            "default",
+        ),
+    ],
+)
+async def test_get_hq_thumbnail(
+    thumbnails: YouTubeChannelThumbnails,
+    result_url: str,
+) -> None:
+    """Check if the highest quality thumbnail is returned."""
+    assert thumbnails.get_highest_quality().url == result_url

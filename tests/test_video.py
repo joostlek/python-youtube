@@ -7,10 +7,12 @@ from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
 from youtubeaio.helper import first
+from youtubeaio.models import YouTubeVideoThumbnails
 from youtubeaio.youtube import YouTube
 
 from . import load_fixture
 from .const import YOUTUBE_URL
+from .helper import get_thumbnail
 
 
 async def test_fetch_video(
@@ -74,18 +76,21 @@ async def test_fetch_video(
         )
         assert video.snippet.thumbnails.default.width == 120
         assert video.snippet.thumbnails.default.height == 90
+        assert video.snippet.thumbnails.medium
         assert (
             video.snippet.thumbnails.medium.url
             == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/mqdefault.jpg"
         )
         assert video.snippet.thumbnails.medium.width == 320
         assert video.snippet.thumbnails.medium.height == 180
+        assert video.snippet.thumbnails.high
         assert (
             video.snippet.thumbnails.high.url
             == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/hqdefault.jpg"
         )
         assert video.snippet.thumbnails.high.width == 480
         assert video.snippet.thumbnails.high.height == 360
+        assert video.snippet.thumbnails.standard
         assert (
             video.snippet.thumbnails.standard.url
             == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/sddefault.jpg"
@@ -173,3 +178,66 @@ async def test_fetch_no_videos() -> None:
     youtube = YouTube()
     with pytest.raises(ValueError):
         await first(youtube.get_videos(video_ids=[]))
+
+
+@pytest.mark.parametrize(
+    ("thumbnails", "result_url"),
+    [
+        (
+            YouTubeVideoThumbnails(
+                maxres=get_thumbnail("maxres"),
+                standard=get_thumbnail("standard"),
+                high=get_thumbnail("high"),
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "maxres",
+        ),
+        (
+            YouTubeVideoThumbnails(
+                maxres=None,
+                standard=get_thumbnail("standard"),
+                high=get_thumbnail("high"),
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "standard",
+        ),
+        (
+            YouTubeVideoThumbnails(
+                maxres=None,
+                standard=None,
+                high=get_thumbnail("high"),
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "high",
+        ),
+        (
+            YouTubeVideoThumbnails(
+                maxres=None,
+                standard=None,
+                high=None,
+                medium=get_thumbnail("medium"),
+                default=get_thumbnail("default"),
+            ),
+            "medium",
+        ),
+        (
+            YouTubeVideoThumbnails(
+                maxres=None,
+                standard=None,
+                high=None,
+                medium=None,
+                default=get_thumbnail("default"),
+            ),
+            "default",
+        ),
+    ],
+)
+async def test_get_hq_thumbnail(
+    thumbnails: YouTubeVideoThumbnails,
+    result_url: str,
+) -> None:
+    """Check if the highest quality thumbnail is returned."""
+    assert thumbnails.get_highest_quality().url == result_url
