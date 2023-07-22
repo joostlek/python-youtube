@@ -121,6 +121,9 @@ disable = [
   "format",
   "unsubscriptable-object",
   "unnecessary-dunder-call",
+  "too-many-instance-attributes",
+  "too-many-arguments",
+  "too-many-locals",
 ]
 
 [tool.pylint.SIMILARITIES]
@@ -144,6 +147,9 @@ ignore = [
   "PLR2004", # Just annoying, not really useful
   "TCH001",
   "SLOT000",
+  "FBT001", # Boolean positional arg
+  "FBT002", # Boolean default arg
+  "PLR0913", # A lot of arguments
 ]
 select = ["ALL"]
 

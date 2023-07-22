@@ -1,8 +1,8 @@
 """Tests for the YouTube client."""
 from datetime import datetime, timezone
-from unittest.mock import patch
 
 import aiohttp
+import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
@@ -110,10 +110,10 @@ async def test_fetch_videos(
 
     async def response_handler(req: BaseRequest) -> Response:
         """Response handler for this test."""
-        if req.query["id"] == "Ks-_Mh1QhMc,GvgqDSnpRQM":
-            fixture = "video_response_1.json"
-        else:
+        if "pageToken" in req.query:
             fixture = "video_response_2.json"
+        else:
+            fixture = "video_response_1.json"
         return aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
@@ -127,24 +127,50 @@ async def test_fetch_videos(
         response_handler,
         repeat=2,
     )
-    with patch("async_python_youtube.youtube.MAX_RESULTS_FOR_VIDEO", 2):
-        async with aiohttp.ClientSession() as session:
-            youtube = YouTube(session=session)
-            videos = youtube.get_videos(
-                video_ids=["Ks-_Mh1QhMc", "GvgqDSnpRQM", "V4DDt30Aat4"],
-            )
-            video1 = await videos.__anext__()
-            assert video1
-            assert video1.video_id == "Ks-_Mh1QhMc"
-            video2 = await videos.__anext__()
-            assert video2
-            assert video2.video_id == "GvgqDSnpRQM"
-            video3 = await videos.__anext__()
-            assert video3
-            assert video3.video_id == "V4DDt30Aat4"
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        videos = youtube.get_videos(
+            video_ids=["Ks-_Mh1QhMc", "GvgqDSnpRQM", "V4DDt30Aat4"],
+        )
+        video1 = await videos.__anext__()
+        assert video1
+        assert video1.video_id == "Ks-_Mh1QhMc"
+        video2 = await videos.__anext__()
+        assert video2
+        assert video2.video_id == "GvgqDSnpRQM"
+        video3 = await videos.__anext__()
+        assert video3
+        assert video3.video_id == "V4DDt30Aat4"
+
+
+async def test_fetch_single_page_video(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test retrieving a page of videos."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=200,
+            headers={"Content-Type": "application/json"},
+            text=load_fixture("video_response_2.json"),
+        ),
+    )
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        videos = youtube.get_videos(
+            video_ids=["V4DDt30Aat4"],
+        )
+        video3 = await videos.__anext__()
+        assert video3
+        assert video3.video_id == "V4DDt30Aat4"
+        with pytest.raises(StopAsyncIteration):
+            await videos.__anext__()
 
 
 async def test_fetch_no_videos() -> None:
     """Test retrieving no videos."""
     youtube = YouTube()
-    assert await first(youtube.get_videos(video_ids=[])) is None
+    with pytest.raises(ValueError):
+        await first(youtube.get_videos(video_ids=[]))

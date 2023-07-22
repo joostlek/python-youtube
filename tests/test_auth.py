@@ -1,37 +1,37 @@
 """Tests for the YouTube client."""
 
 import aiohttp
-from aiohttp.web_request import BaseRequest
-from aresponses import Response, ResponsesMockServer
+import pytest
 
+from async_python_youtube.types import AuthScope, MissingScopeError
 from async_python_youtube.youtube import YouTube
 
-from . import load_fixture
 
-YOUTUBE_URL = "youtube.googleapis.com"
-
-
-async def test_authentication(aresponses: ResponsesMockServer) -> None:
-    """Test request will be sending bearer token after authentication."""
-
-    async def response_handler(req: BaseRequest) -> Response:
-        """Response handler for this test."""
-        assert req.headers.get("Authorization") == "Bearer abc"
-        return aresponses.Response(
-            status=200,
-            headers={"Content-Type": "application/json"},
-            text=load_fixture("video_response_snippet.json"),
-        )
-
-    aresponses.add(
-        YOUTUBE_URL,
-        "/youtube/v3/videos",
-        "GET",
-        response_handler,
-    )
-
+async def test_user_authentication() -> None:
+    """Test setting user authentication."""
     async with aiohttp.ClientSession() as session:
         youtube = YouTube(session=session)
-        youtube.authenticate("abc")
-        assert await youtube.get_video(video_id="Ks-_Mh1QhMc")
+        await youtube.set_user_authentication("token", [AuthScope.READ_ONLY], "refresh")
+        assert youtube.get_user_auth_token() == "token"
+        await youtube.close()
+
+
+async def test_user_authentication_without_scopes() -> None:
+    """Test setting user authentication without scopes."""
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        with pytest.raises(MissingScopeError):
+            await youtube.set_user_authentication("token", [], "refresh")
+        await youtube.close()
+
+
+async def test_user_authentication_without_refresh_token() -> None:
+    """Test setting user authentication without refresh token."""
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session, app_id="asd", app_secret="asd")
+        with pytest.raises(ValueError):
+            await youtube.set_user_authentication("token", [AuthScope.READ_ONLY])
+        youtube = YouTube(session=session, auto_refresh_auth=False)
+        await youtube.set_user_authentication("token", [AuthScope.READ_ONLY])
+        assert youtube.get_user_auth_token() == "token"
         await youtube.close()
