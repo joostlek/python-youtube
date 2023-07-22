@@ -111,7 +111,7 @@ class YouTubeChannel(BaseModel):
     @property
     def upload_playlist_id(self) -> str:
         """Return playlist id with uploads from channel."""
-        return self.channel_id.replace("UC", "UU", 1)
+        return str(self.channel_id).replace("UC", "UU", 1)
 
 
 class YouTubeSubscriptionSnippet(BaseModel):
