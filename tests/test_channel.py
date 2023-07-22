@@ -32,6 +32,8 @@ async def test_fetch_channel(
         )
         channel = await channel_generator.__anext__()
         assert channel
+        assert channel.channel_id == "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+        assert channel.upload_playlist_id == "UU_x5XG1OV2P6uZZ5FSM9Ttw"
         assert channel.snippet
         assert channel.snippet.published_at == datetime(
             2007,
