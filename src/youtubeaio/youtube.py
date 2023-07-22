@@ -12,7 +12,7 @@ from youtubeaio.helper import (
     build_url,
     first,
 )
-from youtubeaio.models import YouTubeChannel, YouTubeVideo
+from youtubeaio.models import YouTubeChannel, YouTubeSubscription, YouTubeVideo
 from youtubeaio.types import (
     AuthScope,
     MissingScopeError,
@@ -231,6 +231,22 @@ class YouTube:
         }
         async for item in self._get_channels(param):
             yield item
+
+    async def get_user_subscriptions(
+        self,
+    ) -> AsyncGenerator[YouTubeSubscription, None]:
+        """Get subscriptions for authenticated user."""
+        param = {
+            "part": "snippet",
+            "mine": "true",
+        }
+        async for item in self._build_generator(
+            "GET",
+            "subscriptions",
+            param,
+            YouTubeSubscription,
+        ):
+            yield item  # type: ignore[misc]
 
     async def close(self) -> None:
         """Close open client session."""
