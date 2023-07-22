@@ -10,8 +10,7 @@ from youtubeaio.helper import first
 from youtubeaio.youtube import YouTube
 
 from . import load_fixture
-
-YOUTUBE_URL = "youtube.googleapis.com"
+from .const import YOUTUBE_URL
 
 
 async def test_fetch_video(
