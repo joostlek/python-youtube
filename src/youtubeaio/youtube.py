@@ -233,7 +233,7 @@ class YouTube:
     ) -> AsyncGenerator[YouTubeChannel, None]:
         """Return list of channels."""
         param = {
-            "part": "snippet",
+            "part": "snippet,statistics",
             "id": channel_ids,
         }
         async for item in self._get_channels(param):
