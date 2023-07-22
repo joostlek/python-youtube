@@ -1,8 +1,8 @@
 """Oauth helpers for YouTube."""
 import aiohttp
 
-from async_python_youtube.helper import YOUTUBE_AUTH_TOKEN_URL, build_url
-from async_python_youtube.types import InvalidRefreshTokenError, UnauthorizedError
+from youtubeaio.helper import YOUTUBE_AUTH_TOKEN_URL, build_url
+from youtubeaio.types import InvalidRefreshTokenError, UnauthorizedError
 
 __all__ = ["refresh_access_token"]
 
@@ -21,9 +21,9 @@ async def refresh_access_token(
     :param ~aiohttp.ClientSession session: optionally a active client session to be
     used for the web request to avoid having to open a new one
     :return: access_token, refresh_token
-    :raises ~async_python_youtube.types.InvalidRefreshTokenException: if refresh token
+    :raises ~youtubeaio.types.InvalidRefreshTokenException: if refresh token
     is invalid
-    :raises ~async_python_youtube.types.UnauthorizedException: if both refresh and
+    :raises ~youtubeaio.types.UnauthorizedException: if both refresh and
     access token are invalid (e.g. if the user changes their password of the app gets
     disconnected)
     :rtype: (str, str)

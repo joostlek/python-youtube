@@ -8,12 +8,12 @@ from typing import Any, TypeVar
 import async_timeout
 from aiohttp import ClientResponse, ClientSession
 
-from async_python_youtube.helper import (
+from youtubeaio.helper import (
     build_url,
     first,
 )
-from async_python_youtube.models import YouTubeVideo
-from async_python_youtube.types import (
+from youtubeaio.models import YouTubeVideo
+from youtubeaio.types import (
     AuthScope,
     MissingScopeError,
     YouTubeAPIError,
@@ -144,9 +144,9 @@ class YouTube:
         :attr:`auto_refresh_auth` is True |default| :code:`None`
         :raises ValueError: if :attr:`auto_refresh_auth` is True but refresh_token is
         not set
-        :raises ~async_python_youtube.types.MissingScopeException: if given token is
+        :raises ~youtubeaio.types.MissingScopeException: if given token is
          missing one of the required scopes
-        :raises ~async_python_youtube.types.InvalidTokenException: if the given token
+        :raises ~youtubeaio.types.InvalidTokenException: if the given token
         is invalid or for a different client id
         """
         if refresh_token is None and self.auto_refresh_auth:

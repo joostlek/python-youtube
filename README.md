@@ -19,7 +19,7 @@ This package allows you to interact with the YouTube V3 API.
 ## Installation
 
 ```bash
-pip install async-python-youtube
+pip install youtubeaio
 ```
 
 ## Changelog & Releases
@@ -124,9 +124,9 @@ SOFTWARE.
 [poetry]: https://python-poetry.org
 [pre-commit]: https://pre-commit.com/
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
-[python-versions-shield]: https://img.shields.io/pypi/pyversions/async-python-youtube
+[python-versions-shield]: https://img.shields.io/pypi/pyversions/youtubeaio
 [releases-shield]: https://img.shields.io/github/release/joostlek/python-youtube.svg
 [releases]: https://github.com/joostlek/python-youtube/releases
 [semver]: http://semver.org/spec/v2.0.0.html
 [sonarcloud]: https://sonarcloud.io/summary/new_code?id=joostlek_python-youtube
-[pypi]: https://pypi.org/project/async-python-youtube/
+[pypi]: https://pypi.org/project/youtubeaio/

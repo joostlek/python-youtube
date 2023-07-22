@@ -6,12 +6,12 @@ import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from async_python_youtube.types import (
+from youtubeaio.types import (
     YouTubeAPIError,
     YouTubeBackendError,
     YouTubeResourceNotFoundError,
 )
-from async_python_youtube.youtube import YouTube
+from youtubeaio.youtube import YouTube
 
 from . import load_fixture
 

@@ -4,7 +4,7 @@ from collections.abc import AsyncGenerator, Generator
 from enum import Enum
 from typing import Any, TypeVar
 
-from async_python_youtube.types import AuthScope
+from youtubeaio.types import AuthScope
 
 __all__ = [
     "YOUTUBE_AUTH_BASE_URL",
@@ -25,7 +25,7 @@ YOUTUBE_AUTH_TOKEN_URL: str = f"{YOUTUBE_AUTH_BASE_URL}/token"
 def build_scope(scopes: list[AuthScope]) -> str:
     """Build a valid scope string from list.
 
-    :param scopes: list of :class:`~async_python_youtube.types.AuthScope`
+    :param scopes: list of :class:`~youtubeaio.types.AuthScope`
     :returns: the valid auth scope string
     """
     return " ".join([s.value for s in scopes])

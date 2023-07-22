@@ -5,8 +5,8 @@ import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from async_python_youtube.oauth import refresh_access_token
-from async_python_youtube.types import InvalidRefreshTokenError, UnauthorizedError
+from youtubeaio.oauth import refresh_access_token
+from youtubeaio.types import InvalidRefreshTokenError, UnauthorizedError
 
 from . import load_fixture
 

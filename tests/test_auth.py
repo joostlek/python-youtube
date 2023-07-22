@@ -3,8 +3,8 @@
 import aiohttp
 import pytest
 
-from async_python_youtube.types import AuthScope, MissingScopeError
-from async_python_youtube.youtube import YouTube
+from youtubeaio.types import AuthScope, MissingScopeError
+from youtubeaio.youtube import YouTube
 
 
 async def test_user_authentication() -> None:

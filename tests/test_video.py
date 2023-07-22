@@ -6,8 +6,8 @@ import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
-from async_python_youtube.helper import first
-from async_python_youtube.youtube import YouTube
+from youtubeaio.helper import first
+from youtubeaio.youtube import YouTube
 
 from . import load_fixture
 

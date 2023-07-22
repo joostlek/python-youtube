@@ -4,7 +4,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel, Field
 
-from async_python_youtube.const import LiveBroadcastContent
+from youtubeaio.const import LiveBroadcastContent
 
 __all__ = [
     "YouTubeThumbnail",
