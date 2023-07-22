@@ -1,0 +1,62 @@
+{
+  "kind": "youtube#SubscriptionListResponse",
+  "etag": "ToySCAR2vCoWXFlWF3I2pOR9odY",
+  "pageInfo": {
+    "totalResults": 547,
+    "resultsPerPage": 2
+  },
+  "items": [
+    {
+      "kind": "youtube#subscription",
+      "etag": "qQ8Upr97jeB0ksUo2lFQXxXtcis",
+      "id": "l6YW-siEBx2rtBlTJ_ip132nwdjtfEj_s_XrLrZyj3Y",
+      "snippet": {
+        "publishedAt": "2020-05-18T01:04:54.7417Z",
+        "title": "DougDoug",
+        "description": "I'm a pepper who teach how to videogame real good.\n\nI stream live on Twitch! https://www.twitch.tv/DougDoug\n\nFollow me on twitter! https://twitter.com/DougDougFood",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UClyGlKOhDUooPJFy4v_mqPg"
+        },
+        "channelId": "UCJA_MqaDMFv6Dh-E8bpszIw",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaQNqmde36_-rZt3loE_aZJ1iJKX936_5ebnJA2dVQ=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaQNqmde36_-rZt3loE_aZJ1iJKX936_5ebnJA2dVQ=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaQNqmde36_-rZt3loE_aZJ1iJKX936_5ebnJA2dVQ=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "3Ma9gfFVk8R7tC6js2OPirKjleg",
+      "id": "l6YW-siEBx0PYqtFJQsPPR3JU1r9dzJpv-pjRAZJ0iU",
+      "snippet": {
+        "publishedAt": "2023-01-04T20:35:54.095866Z",
+        "title": "Home Assistant",
+        "description": "Home Assistant is an open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCbX3YkedQunLt7EQAdVxh7w"
+        },
+        "channelId": "UCJA_MqaDMFv6Dh-E8bpszIw",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaTRAmW34QPGjkXJ9QKJaSXXzbP3K_BlPY5IodnE0Q=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaTRAmW34QPGjkXJ9QKJaSXXzbP3K_BlPY5IodnE0Q=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AOPolaTRAmW34QPGjkXJ9QKJaSXXzbP3K_BlPY5IodnE0Q=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      }
+    }
+  ]
+}

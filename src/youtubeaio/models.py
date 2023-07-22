@@ -107,3 +107,24 @@ class YouTubeChannel(BaseModel):
         None,
         alias="contentDetails",
     )
+
+
+class YouTubeSubscriptionSnippet(BaseModel):
+    """Model representing a YouTube subscription snippet."""
+
+    title: str = Field(...)
+    description: str = Field(...)
+    subscribed_at: datetime = Field(..., alias="publishedAt")
+    channel_info: dict[str, str] = Field(..., alias="resourceId")
+
+    @property
+    def channel_id(self) -> str:
+        """Return channel id."""
+        return self.channel_info["channelId"]
+
+
+class YouTubeSubscription(BaseModel):
+    """Model representing a YouTube subscription."""
+
+    subscription_id: str = Field(..., alias="id")
+    snippet: YouTubeSubscriptionSnippet | None = None
