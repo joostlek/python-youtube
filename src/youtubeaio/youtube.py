@@ -191,7 +191,7 @@ class YouTube:
             raise ValueError(msg)
         param = {
             "part": "snippet",
-            "id": video_ids,
+            "id": ",".join(video_ids),
         }
         async for item in self._build_generator(
             "GET",
@@ -234,7 +234,7 @@ class YouTube:
         """Return list of channels."""
         param = {
             "part": "snippet,contentDetails,statistics",
-            "id": channel_ids,
+            "id": ",".join(channel_ids),
         }
         async for item in self._get_channels(param):
             yield item
