@@ -7,6 +7,7 @@ from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
 
 from youtubeaio.types import (
+    ForbiddenError,
     UnauthorizedError,
     YouTubeAPIError,
     YouTubeBackendError,
@@ -184,5 +185,27 @@ async def test_unauthorized(
     async with aiohttp.ClientSession() as session:
         youtube = YouTube(session=session)
         with pytest.raises(UnauthorizedError):
+            await youtube.get_video(video_id="Ks-_Mh1QhMc")
+        await youtube.close()
+
+
+async def test_not_activated(
+    aresponses: ResponsesMockServer,
+) -> None:
+    """Test handling YouTube api not activated."""
+    aresponses.add(
+        YOUTUBE_URL,
+        "/youtube/v3/videos",
+        "GET",
+        aresponses.Response(
+            status=403,
+            headers={"Content-Type": "application/json"},
+            text=load_fixture("youtube_not_activated.json"),
+        ),
+    )
+
+    async with aiohttp.ClientSession() as session:
+        youtube = YouTube(session=session)
+        with pytest.raises(ForbiddenError):
             await youtube.get_video(video_id="Ks-_Mh1QhMc")
         await youtube.close()

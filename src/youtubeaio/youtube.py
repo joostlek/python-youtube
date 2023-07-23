@@ -20,6 +20,7 @@ from youtubeaio.models import (
 )
 from youtubeaio.types import (
     AuthScope,
+    ForbiddenError,
     MissingScopeError,
     UnauthorizedError,
     YouTubeAPIError,
@@ -86,6 +87,10 @@ class YouTube:
             raise YouTubeResourceNotFoundError
         if response.status == 401:
             raise UnauthorizedError
+        if response.status == 403:
+            response_json = await response.json()
+            error_message = response_json["error"]["errors"][0]["message"]
+            raise ForbiddenError(error_message)
         if 400 <= response.status < 500:
             try:
                 response.raise_for_status()

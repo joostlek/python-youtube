@@ -1,0 +1,35 @@
+{
+    "error": {
+        "code": 403,
+        "message": "YouTube Data API v3 has not been used in project 69696969 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=69696969 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+        "errors": [
+            {
+                "message": "YouTube Data API v3 has not been used in project 69696969 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=69696969 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+                "domain": "usageLimits",
+                "reason": "accessNotConfigured",
+                "extendedHelp": "https://console.developers.google.com"
+            }
+        ],
+        "status": "PERMISSION_DENIED",
+        "details": [
+            {
+                "@type": "type.googleapis.com/google.rpc.Help",
+                "links": [
+                    {
+                        "description": "Google developers console API activation",
+                        "url": "https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=69696969"
+                    }
+                ]
+            },
+            {
+                "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+                "reason": "SERVICE_DISABLED",
+                "domain": "googleapis.com",
+                "metadata": {
+                    "service": "youtube.googleapis.com",
+                    "consumer": "projects/69696969"
+                }
+            }
+        ]
+    }
+}
