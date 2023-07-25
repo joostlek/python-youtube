@@ -146,7 +146,7 @@ class YouTube:
                 _first = False
         except asyncio.TimeoutError as exc:
             msg = "Timeout occurred"
-            raise YouTubeAPIError(msg) from exc
+            raise YouTubeBackendError(msg) from exc
 
     async def set_user_authentication(
         self,

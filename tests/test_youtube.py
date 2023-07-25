@@ -56,7 +56,7 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
     )
 
     youtube = YouTube(session_timeout=1)
-    with pytest.raises(YouTubeAPIError):
+    with pytest.raises(YouTubeBackendError):
         assert await youtube.get_video(video_id="Ks-_Mh1QhMc")
     await youtube.close()
 
