@@ -29,7 +29,7 @@ async def test_fetch_video(
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixture("video_response_snippet.json"),
+            text=json.dumps(construct_fixture("video", ["snippet"], 1)),
         ),
     )
     async with aiohttp.ClientSession() as session, YouTube(session=session) as youtube:
