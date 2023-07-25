@@ -1,11 +1,11 @@
 """Tests for the YouTube client."""
 import json
-from datetime import datetime, timezone
 
 import aiohttp
 import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
+from syrupy import SnapshotAssertion
 
 from youtubeaio.helper import first
 from youtubeaio.models import YouTubeVideoThumbnails
@@ -19,6 +19,7 @@ from .helper import get_thumbnail
 
 async def test_fetch_video(
     aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
 ) -> None:
     """Test retrieving a video."""
     aresponses.add(
@@ -31,82 +32,9 @@ async def test_fetch_video(
             text=load_fixture("video_response_snippet.json"),
         ),
     )
-    async with aiohttp.ClientSession() as session:
-        youtube = YouTube(session=session)
+    async with aiohttp.ClientSession() as session, YouTube(session=session) as youtube:
         video = await youtube.get_video(video_id="Ks-_Mh1QhMc")
-        assert video
-        assert video.snippet
-        assert video.snippet.published_at == datetime(
-            2012,
-            10,
-            1,
-            15,
-            27,
-            35,
-            tzinfo=timezone.utc,
-        )
-        assert video.snippet.channel_id == "UCAuUUnT6oDeKwE6v1NGQxug"
-        assert (
-            video.snippet.title
-            == "Your body language may shape who you are | Amy Cuddy"
-        )
-        assert (
-            video.snippet.description
-            == "Body language affects how others see us, but it may also change how "
-            'we see ourselves. Social psychologist Amy Cuddy argues that "power '
-            "posing\" -- standing in a posture of confidence, even when we don't "
-            "feel confident -- can boost feelings of confidence, and might have an "
-            "impact on our chances for success. (Note: Some of the findings "
-            "presented in this talk have been referenced in an ongoing debate "
-            "among social scientists about robustness and reproducibility. Read "
-            "Amy Cuddy's response here: "
-            "http://ideas.ted.com/inside-the-debate-about-power-posing-a-q-a-with"
-            "-amy-cuddy/)\n\nGet TED Talks recommended just for you! Learn more at "
-            "https://www.ted.com/signup.\n\nThe TED Talks channel features the "
-            "best talks and performances from the TED Conference, where the "
-            "world's leading thinkers and doers give the talk of their lives in 18 "
-            "minutes (or less). Look for talks on Technology, Entertainment and "
-            "Design -- plus science, business, global issues, the arts and "
-            "more.\n\nFollow TED on Twitter: http://www.twitter.com/TEDTalks\nLike "
-            "TED on Facebook: https://www.facebook.com/TED\n\nSubscribe to our "
-            "channel: https://www.youtube.com/TED"
-        )
-        assert video.snippet.thumbnails
-        assert (
-            video.snippet.thumbnails.default.url
-            == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/default.jpg"
-        )
-        assert video.snippet.thumbnails.default.width == 120
-        assert video.snippet.thumbnails.default.height == 90
-        assert video.snippet.thumbnails.medium
-        assert (
-            video.snippet.thumbnails.medium.url
-            == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/mqdefault.jpg"
-        )
-        assert video.snippet.thumbnails.medium.width == 320
-        assert video.snippet.thumbnails.medium.height == 180
-        assert video.snippet.thumbnails.high
-        assert (
-            video.snippet.thumbnails.high.url
-            == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/hqdefault.jpg"
-        )
-        assert video.snippet.thumbnails.high.width == 480
-        assert video.snippet.thumbnails.high.height == 360
-        assert video.snippet.thumbnails.standard
-        assert (
-            video.snippet.thumbnails.standard.url
-            == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/sddefault.jpg"
-        )
-        assert video.snippet.thumbnails.standard.width == 640
-        assert video.snippet.thumbnails.standard.height == 480
-        assert video.snippet.thumbnails.maxres
-        assert (
-            video.snippet.thumbnails.maxres.url
-            == "https://i.ytimg.com/vi/Ks-_Mh1QhMc/maxresdefault.jpg"
-        )
-        assert video.snippet.thumbnails.maxres.width == 1280
-        assert video.snippet.thumbnails.maxres.height == 720
-        await youtube.close()
+        assert video == snapshot
 
 
 async def test_fetch_videos(
