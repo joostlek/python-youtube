@@ -43,7 +43,7 @@ class VideoDefinition(str, Enum):
 class VideoProjection(str, Enum):
     """Enum holding the possible video projections."""
 
-    THEE_SIXTY = "360"
+    THREE_SIXTY = "360"
     RECTANGULAR = "rectangular"
 
 
