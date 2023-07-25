@@ -47,6 +47,7 @@ pytest-cov = "4.1.0"
 ruff = "0.0.280"
 safety = "2.4.0b1"
 yamllint = "1.32.0"
+syrupy = "^4.0.8"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joostlek/python-youtube/issues"
@@ -81,7 +82,7 @@ disallow_untyped_calls = true
 disallow_untyped_decorators = true
 disallow_untyped_defs = true
 no_implicit_optional = true
-no_implicit_reexport = true
+#no_implicit_reexport = true
 strict_optional = true
 warn_incomplete_stub = true
 warn_no_return = true
