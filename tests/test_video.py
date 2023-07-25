@@ -1,6 +1,6 @@
 """Tests for the YouTube client."""
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import aiohttp
 import pytest
@@ -256,7 +256,9 @@ async def test_nullable_fields(
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=json.dumps(construct_fixture("video", ["snippet"], 1)),
+            text=json.dumps(
+                construct_fixture("video", ["snippet", "contentDetails"], 1),
+            ),
         ),
     )
     async with aiohttp.ClientSession() as session:
@@ -264,6 +266,8 @@ async def test_nullable_fields(
         video = await youtube.get_video(video_id="V4DDt30Aat4")
         assert video
         assert video.snippet.channel_id == "UCAuUUnT6oDeKwE6v1NGQxug"
+        assert video.content_details.duration == timedelta(minutes=21, seconds=3)
+        assert video.content_details.caption is True
 
 
 async def test_nullable_fields_null(
@@ -286,3 +290,5 @@ async def test_nullable_fields_null(
         assert video
         with pytest.raises(PartMissingError):
             assert video.snippet.thumbnails
+        with pytest.raises(PartMissingError):
+            assert video.content_details

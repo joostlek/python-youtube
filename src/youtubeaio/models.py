@@ -1,10 +1,15 @@
 """Models for YouTube API."""
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import TypeVar
 
 from pydantic import BaseModel, Field
 
-from youtubeaio.const import LiveBroadcastContent
+from youtubeaio.const import (
+    LiveBroadcastContent,
+    VideoDefinition,
+    VideoDimension,
+    VideoProjection,
+)
 
 __all__ = [
     "YouTubeThumbnail",
@@ -18,6 +23,7 @@ __all__ = [
     "YouTubeChannel",
 ]
 
+from youtubeaio.helper import get_duration
 from youtubeaio.types import PartMissingError
 
 T = TypeVar("T")
@@ -66,11 +72,36 @@ class YouTubeVideoSnippet(BaseModel):
     default_audio_language: str | None = Field(None, alias="defaultAudioLanguage")
 
 
+class YouTubeVideoContentDetails(BaseModel):
+    """Model representing video content details."""
+
+    raw_duration: str = Field(..., alias="duration")
+    dimension: VideoDimension = Field(...)
+    definition: VideoDefinition = Field(...)
+    raw_caption: str = Field(..., alias="caption")
+    licensed_content: bool = Field(..., alias="licensedContent")
+    projection: VideoProjection = Field(...)
+
+    @property
+    def caption(self) -> bool:
+        """Return if video has caption."""
+        return self.raw_caption == "true"
+
+    @property
+    def duration(self) -> timedelta:
+        """Return length of the video."""
+        return get_duration(self.raw_duration)
+
+
 class YouTubeVideo(BaseModel):
     """Model representing a video."""
 
     video_id: str = Field(..., alias="id")
     nullable_snippet: YouTubeVideoSnippet | None = Field(None, alias="snippet")
+    nullable_content_details: YouTubeVideoContentDetails | None = Field(
+        None,
+        alias="contentDetails",
+    )
 
     @property
     def snippet(self) -> YouTubeVideoSnippet:
@@ -78,6 +109,13 @@ class YouTubeVideo(BaseModel):
         if self.nullable_snippet is None:
             raise PartMissingError
         return self.nullable_snippet
+
+    @property
+    def content_details(self) -> YouTubeVideoContentDetails:
+        """Return content details."""
+        if self.nullable_content_details is None:
+            raise PartMissingError
+        return self.nullable_content_details
 
 
 class YouTubeChannelThumbnails(BaseModel):
