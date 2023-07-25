@@ -26,6 +26,27 @@ class VideoPart(str, Enum):
     TOPIC_DETAILS = "topicDetails"
 
 
+class VideoDimension(str, Enum):
+    """Enum holding the possible video dimensions."""
+
+    D3 = "3d"
+    D2 = "2d"
+
+
+class VideoDefinition(str, Enum):
+    """Enum holding the possible video definitions."""
+
+    HD = "hd"
+    SD = "sd"
+
+
+class VideoProjection(str, Enum):
+    """Enum holding the possible video projections."""
+
+    THREE_SIXTY = "360"
+    RECTANGULAR = "rectangular"
+
+
 class LiveBroadcastContent(str, Enum):
     """Enum holding the liveBroadcastContent values."""
 

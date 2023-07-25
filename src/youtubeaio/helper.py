@@ -1,6 +1,8 @@
 """Helper functions for the YouTube API."""
+import re
 import urllib.parse
 from collections.abc import AsyncGenerator, Generator
+from datetime import timedelta
 from enum import Enum
 from typing import Any, TypeVar
 
@@ -106,3 +108,23 @@ async def limit(
         if count > total:
             break
         yield item
+
+
+def get_duration(duration: str) -> timedelta:
+    """Return timedelta for ISO8601 duration string."""
+    attributes = {
+        "S": 0,
+        "M": 0,
+        "H": 0,
+        "D": 0,
+    }
+    for match in re.compile(r"(\d+[DHMS])").finditer(duration):
+        part = match.group(1)
+        time_value = int(part[:-1])
+        attributes[part[len(part) - 1]] = time_value
+    return timedelta(
+        days=attributes["D"],
+        hours=attributes["H"],
+        minutes=attributes["M"],
+        seconds=attributes["S"],
+    )

@@ -1,10 +1,11 @@
 """Tests for the helper module."""
 from collections.abc import AsyncGenerator
+from datetime import timedelta
 from typing import Any
 
 import pytest
 
-from youtubeaio.helper import build_scope, build_url, chunk, first, limit
+from youtubeaio.helper import build_scope, build_url, chunk, first, get_duration, limit
 from youtubeaio.types import AuthScope
 
 
@@ -137,3 +138,32 @@ async def test_build_url(
 ) -> None:
     """Test build url."""
     assert build_url("asd.com", params, remove_none, split_lists, enum_value) == result
+
+
+@pytest.mark.parametrize(
+    ("duration", "result"),
+    [
+        (
+            "PT5S",
+            timedelta(seconds=5),
+        ),
+        (
+            "PT10M5S",
+            timedelta(minutes=10, seconds=5),
+        ),
+        (
+            "PT2H10M5S",
+            timedelta(hours=2, minutes=10, seconds=5),
+        ),
+        (
+            "P4DT2H10M5S",
+            timedelta(days=4, hours=2, minutes=10, seconds=5),
+        ),
+    ],
+)
+def test_duration(
+    duration: str,
+    result: timedelta,
+) -> None:
+    """Test duration,."""
+    assert get_duration(duration) == result
