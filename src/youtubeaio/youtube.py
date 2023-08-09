@@ -7,6 +7,7 @@ from typing import Any, TypeVar
 
 import async_timeout
 from aiohttp import ClientError, ClientResponse, ClientSession
+from typing_extensions import Self
 
 from youtubeaio.helper import (
     build_url,
@@ -284,7 +285,7 @@ class YouTube:
         if self.session and self._close_session:
             await self.session.close()
 
-    async def __aenter__(self) -> "YouTube":
+    async def __aenter__(self) -> Self:
         """Async enter.
 
         Returns
@@ -293,7 +294,7 @@ class YouTube:
         """
         return self
 
-    async def __aexit__(self, *_exc_info: Any) -> None:
+    async def __aexit__(self, *_exc_info: object) -> None:
         """Async exit.
 
         Args:
