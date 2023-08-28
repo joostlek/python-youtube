@@ -1,12 +1,16 @@
 """Helper functions for the YouTube API."""
+from __future__ import annotations
+
 import re
 import urllib.parse
-from collections.abc import AsyncGenerator, Generator
 from datetime import timedelta
 from enum import Enum
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from youtubeaio.types import AuthScope
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator, Generator
 
 __all__ = [
     "YOUTUBE_AUTH_BASE_URL",

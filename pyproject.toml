@@ -157,6 +157,8 @@ select = ["ALL"]
 [tool.ruff.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
+[tool.ruff.flake8-type-checking]
+runtime-evaluated-base-classes = ["pydantic.BaseModel"]
 
 [tool.ruff.isort]
 known-first-party = ["youtubeaio"]

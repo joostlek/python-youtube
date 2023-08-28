@@ -1,4 +1,6 @@
 """Oauth helpers for YouTube."""
+from __future__ import annotations
+
 import aiohttp
 
 from youtubeaio.helper import YOUTUBE_AUTH_TOKEN_URL, build_url

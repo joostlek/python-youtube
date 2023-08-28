@@ -1,13 +1,13 @@
 """The YouTube API."""
+from __future__ import annotations
+
 import asyncio
-from collections.abc import AsyncGenerator, Callable, Coroutine
 from dataclasses import field
 from logging import getLogger
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 import async_timeout
 from aiohttp import ClientError, ClientResponse, ClientSession
-from typing_extensions import Self
 
 from youtubeaio.helper import (
     build_url,
@@ -28,6 +28,11 @@ from youtubeaio.types import (
     YouTubeBackendError,
     YouTubeResourceNotFoundError,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator, Callable, Coroutine
+
+    from typing_extensions import Self
 
 __all__ = [
     "YouTube",
