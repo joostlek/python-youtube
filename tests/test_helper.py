@@ -1,16 +1,20 @@
 """Tests for the helper module."""
-from collections.abc import AsyncGenerator
+from __future__ import annotations
+
 from datetime import timedelta
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
 from youtubeaio.helper import build_scope, build_url, chunk, first, get_duration, limit
 from youtubeaio.types import AuthScope
 
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator
+
 
 async def _generator(amount: int) -> AsyncGenerator[int, None]:
-    for i in range(0, amount):
+    for i in range(amount):
         yield i
 
 
@@ -28,7 +32,7 @@ async def test_first_unavailable() -> None:
 
 def test_chunk() -> None:
     """Test if the chunk method works."""
-    source = list(range(0, 10))
+    source = list(range(10))
 
     result = list(chunk(source, 3))
     assert result == [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]

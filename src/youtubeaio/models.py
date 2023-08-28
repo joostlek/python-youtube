@@ -1,4 +1,6 @@
 """Models for YouTube API."""
+from __future__ import annotations
+
 from datetime import datetime, timedelta
 from typing import TypeVar
 
@@ -276,3 +278,6 @@ class YouTubePlaylistItem(BaseModel):
         if self.nullable_content_details is None:
             raise PartMissingError
         return self.nullable_content_details
+
+
+YouTubeChannelSnippet.update_forward_refs()
