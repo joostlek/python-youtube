@@ -6,7 +6,6 @@ from dataclasses import field
 from logging import getLogger
 from typing import TYPE_CHECKING, Any, TypeVar
 
-import async_timeout
 from aiohttp import ClientError, ClientResponse, ClientSession
 
 from youtubeaio.helper import (
@@ -140,7 +139,7 @@ class YouTube:
                     remove_none=True,
                     split_lists=split_lists,
                 )
-                async with async_timeout.timeout(self.session_timeout):
+                async with asyncio.timeout(self.session_timeout):
                     response = await method(self.session, _url, body_data)
                 if response.content_type != "application/json":
                     msg = "Unexpected response type"
