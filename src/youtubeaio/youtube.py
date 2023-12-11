@@ -49,7 +49,6 @@ class YouTube:
 
     _user_auth_token: str | None = None
     _user_auth_refresh_token: str | None = None
-    _user_auth_scopes: list[AuthScope] = field(default_factory=list)
     _has_user_auth = False
 
     def __init__(
@@ -65,6 +64,7 @@ class YouTube:
         self.session_timeout = session_timeout
         self.app_id = app_id
         self.app_secret = app_secret
+        self._user_auth_scopes: list[AuthScope] = []
         if auto_refresh_auth is None:
             self.auto_refresh_auth = app_id is not None and app_secret is not None
         else:
