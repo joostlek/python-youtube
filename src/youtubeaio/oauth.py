@@ -1,4 +1,5 @@
 """Oauth helpers for YouTube."""
+
 from __future__ import annotations
 
 import aiohttp
