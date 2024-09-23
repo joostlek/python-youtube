@@ -32,20 +32,20 @@ pydantic = ">=1.10.8"
 
 [tool.poetry.group.dev.dependencies]
 aresponses = "2.1.6"
-codespell = "2.2.6"
+codespell = "2.3.0"
 covdefaults = "2.3.0"
-coverage = {version = "7.4.4", extras = ["toml"]}
-mypy = "1.9.0"
+coverage = {version = "7.6.1", extras = ["toml"]}
+mypy = "1.11.2"
 pre-commit = "3.8.0"
 pre-commit-hooks = "4.6.0"
-pylint = "3.1.0"
-pytest = "8.1.1"
+pylint = "3.3.0"
+pytest = "8.3.3"
 pytest-asyncio = "0.24.0"
-pytest-cov = "4.1.0"
-ruff = "0.4.5"
-safety = "2.4.0b2"
+pytest-cov = "5.0.0"
+ruff = "0.6.7"
+safety = "3.2.7"
 yamllint = "1.35.1"
-syrupy = "4.6.1"
+syrupy = "4.7.1"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joostlek/python-youtube/issues"
@@ -116,6 +116,7 @@ max-attributes = 8
 
 [tool.pylint."MESSAGES CONTROL"]
 disable = [
+  "too-many-positional-arguments",
   "duplicate-code",
   "format",
   "unsubscriptable-object",
@@ -135,7 +136,7 @@ max-line-length = 88
 addopts = "--cov"
 asyncio_mode = "auto"
 
-[tool.ruff]
+[tool.ruff.lint]
 ignore = [
   "ANN101", # Self... explanatory
   "ANN102", # cls... just as useless
@@ -152,16 +153,16 @@ ignore = [
 ]
 select = ["ALL"]
 
-[tool.ruff.flake8-pytest-style]
+[tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
-[tool.ruff.flake8-type-checking]
+[tool.ruff.lint.flake8-type-checking]
 runtime-evaluated-base-classes = ["pydantic.BaseModel"]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["youtubeaio"]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 25
 
 [build-system]

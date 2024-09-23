@@ -1,4 +1,5 @@
 """Test helpers."""
+
 from youtubeaio.models import YouTubeThumbnail
 
 

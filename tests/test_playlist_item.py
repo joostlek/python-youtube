@@ -1,4 +1,5 @@
 """Tests for the YouTube client."""
+
 import json
 
 import aiohttp

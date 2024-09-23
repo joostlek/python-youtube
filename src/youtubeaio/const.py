@@ -1,4 +1,5 @@
 """Models for YouTube API."""
+
 from enum import Enum
 
 

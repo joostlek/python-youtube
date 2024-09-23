@@ -1,4 +1,5 @@
 """The YouTube API."""
+
 from __future__ import annotations
 
 import asyncio
@@ -294,6 +295,7 @@ class YouTube:
         Returns
         -------
             The YouTube object.
+
         """
         return self
 
@@ -303,5 +305,6 @@ class YouTube:
         Args:
         ----
             _exc_info: Exec type.
+
         """
         await self.close()

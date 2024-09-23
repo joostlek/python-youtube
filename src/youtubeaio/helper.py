@@ -1,4 +1,5 @@
 """Helper functions for the YouTube API."""
+
 from __future__ import annotations
 
 import re
