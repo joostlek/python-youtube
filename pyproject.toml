@@ -116,6 +116,7 @@ max-attributes = 8
 
 [tool.pylint."MESSAGES CONTROL"]
 disable = [
+  "too-many-positional-arguments",
   "duplicate-code",
   "format",
   "unsubscriptable-object",
