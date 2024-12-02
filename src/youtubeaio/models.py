@@ -15,15 +15,15 @@ from youtubeaio.const import (
 )
 
 __all__ = [
-    "YouTubeThumbnail",
-    "YouTubeVideoThumbnails",
-    "YouTubeVideoSnippet",
-    "YouTubeVideo",
-    "YouTubeChannelThumbnails",
-    "YouTubeChannelRelatedPlaylists",
-    "YouTubeChannelContentDetails",
-    "YouTubeChannelSnippet",
     "YouTubeChannel",
+    "YouTubeChannelContentDetails",
+    "YouTubeChannelRelatedPlaylists",
+    "YouTubeChannelSnippet",
+    "YouTubeChannelThumbnails",
+    "YouTubeThumbnail",
+    "YouTubeVideo",
+    "YouTubeVideoSnippet",
+    "YouTubeVideoThumbnails",
 ]
 
 from youtubeaio.helper import get_duration
