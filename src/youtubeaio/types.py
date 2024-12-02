@@ -4,17 +4,17 @@ from enum import Enum
 
 __all__ = [
     "AuthScope",
-    "YouTubeAPIError",
-    "YouTubeAuthorizationError",
+    "DeprecatedError",
+    "ForbiddenError",
     "InvalidRefreshTokenError",
     "InvalidTokenError",
-    "UnauthorizedError",
-    "MissingScopeError",
-    "YouTubeBackendError",
     "MissingAppSecretError",
-    "DeprecatedError",
+    "MissingScopeError",
+    "UnauthorizedError",
+    "YouTubeAPIError",
+    "YouTubeAuthorizationError",
+    "YouTubeBackendError",
     "YouTubeResourceNotFoundError",
-    "ForbiddenError",
 ]
 
 

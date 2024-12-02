@@ -138,18 +138,18 @@ asyncio_mode = "auto"
 
 [tool.ruff.lint]
 ignore = [
-  "ANN101", # Self... explanatory
-  "ANN102", # cls... just as useless
   "ANN401", # Opinioated warning on disallowing dynamically typed expressions
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions
   "PLR2004", # Just annoying, not really useful
-  "TCH001",
+  "TC001",
   "TRY301",
   "FBT001", # Boolean positional arg
   "FBT002", # Boolean default arg
   "PLR0913", # A lot of arguments
+  "ISC001", # Conflicts with other rules
+  "COM812", # Conflicts with other rules
 ]
 select = ["ALL"]
 
