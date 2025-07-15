@@ -281,4 +281,4 @@ class YouTubePlaylistItem(BaseModel):
         return self.nullable_content_details
 
 
-YouTubeChannelSnippet.update_forward_refs()
+YouTubeChannelSnippet.model_rebuild()
