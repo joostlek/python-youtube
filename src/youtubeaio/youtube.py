@@ -297,24 +297,19 @@ class YouTube:
         ):
             yield item  # type: ignore[misc]
 
-    async def is_short(
-        self,
-        video_id: str
-    ) -> bool | None:
+    async def is_short(self, video_id: str) -> bool:
         """Return True if the video ID corresponds to a YouTube Short."""
         _url = "https://www.youtube.com/shorts/" + video_id
+        if not self.session:
+            self.session = ClientSession()
+            self._close_session = True
         async with asyncio.timeout(self.session_timeout):
-            response = await self._api_head_request(
-                self.session,
-                _url
-            )
+            response = await self._api_head_request(self.session, _url)
         if response.status == 200:
             return True
-        elif response.status == 303:
+        if response.status == 303:
             return False
-        else:
-            raise YouTubeAPIError
-
+        raise YouTubeAPIError
 
     async def close(self) -> None:
         """Close open client session."""
