@@ -124,7 +124,7 @@ class YouTube:
     ) -> ClientResponse:
         """Make HEAD request with authorization."""
         headers = {"Authorization": f"Bearer {self._user_auth_token}"}
-        self.logger.debug("making GET request to %s", url)
+        self.logger.debug("making HEAD request to %s", url)
         response = await session.head(url, headers=headers, json=data)
         return await self._check_request_return(response)
 
