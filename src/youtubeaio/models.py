@@ -15,15 +15,15 @@ from youtubeaio.const import (
 )
 
 __all__ = [
-    "YouTubeThumbnail",
-    "YouTubeVideoThumbnails",
-    "YouTubeVideoSnippet",
-    "YouTubeVideo",
-    "YouTubeChannelThumbnails",
-    "YouTubeChannelRelatedPlaylists",
-    "YouTubeChannelContentDetails",
-    "YouTubeChannelSnippet",
     "YouTubeChannel",
+    "YouTubeChannelContentDetails",
+    "YouTubeChannelRelatedPlaylists",
+    "YouTubeChannelSnippet",
+    "YouTubeChannelThumbnails",
+    "YouTubeThumbnail",
+    "YouTubeVideo",
+    "YouTubeVideoSnippet",
+    "YouTubeVideoThumbnails",
 ]
 
 from youtubeaio.helper import get_duration
@@ -281,4 +281,4 @@ class YouTubePlaylistItem(BaseModel):
         return self.nullable_content_details
 
 
-YouTubeChannelSnippet.update_forward_refs()
+YouTubeChannelSnippet.model_rebuild()

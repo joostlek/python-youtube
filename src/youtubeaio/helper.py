@@ -18,8 +18,8 @@ __all__ = [
     "YOUTUBE_AUTH_TOKEN_URL",
     "build_scope",
     "build_url",
-    "first",
     "chunk",
+    "first",
     "limit",
 ]
 
