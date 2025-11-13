@@ -77,6 +77,7 @@ class YouTube:
             ],
         ] = {
             "get": self._api_get_request,
+            "head": self._api_head_request,
         }
 
     async def _check_request_return(self, response: ClientResponse) -> ClientResponse:
@@ -113,6 +114,18 @@ class YouTube:
         headers = {"Authorization": f"Bearer {self._user_auth_token}"}
         self.logger.debug("making GET request to %s", url)
         response = await session.get(url, headers=headers, json=data)
+        return await self._check_request_return(response)
+
+    async def _api_head_request(
+        self,
+        session: ClientSession,
+        url: str,
+        data: dict[str, Any] | None = None,
+    ) -> ClientResponse:
+        """Make HEAD request with authorization."""
+        headers = {"Authorization": f"Bearer {self._user_auth_token}"}
+        self.logger.debug("making HEAD request to %s", url)
+        response = await session.head(url, headers=headers, json=data)
         return await self._check_request_return(response)
 
     async def _build_generator(
@@ -283,6 +296,20 @@ class YouTube:
             YouTubePlaylistItem,
         ):
             yield item  # type: ignore[misc]
+
+    async def is_short(self, video_id: str) -> bool:
+        """Return True if the video ID corresponds to a YouTube Short."""
+        _url = "https://www.youtube.com/shorts/" + video_id
+        if not self.session:
+            self.session = ClientSession()
+            self._close_session = True
+        async with asyncio.timeout(self.session_timeout):
+            response = await self._api_head_request(self.session, _url)
+        if response.status == 200:
+            return True
+        if response.status == 303:
+            return False
+        raise YouTubeAPIError
 
     async def close(self) -> None:
         """Close open client session."""
