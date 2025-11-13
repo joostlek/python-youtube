@@ -313,7 +313,7 @@ class YouTube:
         elif response.status == 303:
             return False
         else:
-            return None
+            raise YouTubeAPIError
 
 
     async def close(self) -> None:
