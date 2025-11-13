@@ -7,8 +7,8 @@ import aiohttp
 import pytest
 from aiohttp.web_request import BaseRequest
 from aresponses import Response, ResponsesMockServer
-from syrupy import SnapshotAssertion
 
+from syrupy import SnapshotAssertion
 from youtubeaio.helper import first
 from youtubeaio.models import YouTubeVideoThumbnails
 from youtubeaio.types import PartMissingError

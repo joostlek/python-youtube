@@ -1,7 +1,9 @@
-import pytest
-from syrupy import SnapshotAssertion
+"""Pytest configuration for Syrupy snapshot testing with Youtube extension."""
 
-from tests.syrupy import YoutubeSnapshotSerializer, YoutubeSnapshotExtension
+import pytest
+
+from syrupy import SnapshotAssertion
+from tests.syrupy import YoutubeSnapshotExtension
 
 
 @pytest.fixture(name="snapshot")
