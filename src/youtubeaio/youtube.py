@@ -307,7 +307,7 @@ class YouTube:
             response = await self._api_head_request(self.session, _url)
         if response.status == 200:
             return True
-        if response.status == 303 or response.status == 302 or response.status == 301:
+        if response.status in {303, 302, 301}:
             return False
         raise YouTubeAPIError
 
