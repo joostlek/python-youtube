@@ -304,7 +304,11 @@ class YouTube:
             self.session = ClientSession()
             self._close_session = True
         async with asyncio.timeout(self.session_timeout):
-            response = await self._api_head_request(self.session, _url)
+            response = await self.session.head(
+                _url,
+                allow_redirects=False,
+                headers={"User-Agent": "curl/x.x"},
+            )
         if response.status == 200:
             return True
         if response.status in {303, 302, 301}:
