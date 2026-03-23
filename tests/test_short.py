@@ -1,5 +1,7 @@
 """Tests for the YouTube client."""
 
+from typing import cast
+
 import aiohttp
 import aiohttp.web
 from aresponses import ResponsesMockServer
@@ -58,7 +60,7 @@ async def test_is_short_sends_curl_user_agent(
         request: aiohttp.web.Request,
     ) -> aiohttp.web.Response:
         assert request.headers.get("User-Agent") == "curl/x.x"
-        return aresponses.Response(status=200)
+        return cast("aiohttp.web.Response", aresponses.Response(status=200))
 
     aresponses.add(
         "www.youtube.com", "/shorts/2YUPfsi8PF4", "HEAD", _assert_user_agent
