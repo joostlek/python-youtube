@@ -54,13 +54,12 @@ async def test_is_short_sends_curl_user_agent(
     aresponses: ResponsesMockServer,
 ) -> None:
     """Test that is_short sends a curl User-Agent to avoid GDPR consent redirects."""
- 
     async def _assert_user_agent(
         request: aiohttp.web.Request,
     ) -> aiohttp.web.Response:
         assert request.headers.get("User-Agent") == "curl/x.x"
         return aresponses.Response(status=200)
- 
+
     aresponses.add(
         "www.youtube.com", "/shorts/2YUPfsi8PF4", "HEAD", _assert_user_agent
     )
