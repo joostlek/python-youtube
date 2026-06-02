@@ -6,7 +6,7 @@ import re
 import urllib.parse
 from datetime import timedelta
 from enum import Enum
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any
 
 from youtubeaio.types import AuthScope
 
@@ -22,8 +22,6 @@ __all__ = [
     "first",
     "limit",
 ]
-
-T = TypeVar("T")
 
 YOUTUBE_AUTH_BASE_URL: str = "https://oauth2.googleapis.com"
 YOUTUBE_AUTH_TOKEN_URL: str = f"{YOUTUBE_AUTH_BASE_URL}/token"
