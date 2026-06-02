@@ -32,20 +32,20 @@ pydantic = ">=2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 aresponses = "3.0.0"
-codespell = "2.4.1"
+codespell = "2.4.2"
 covdefaults = "2.3.0"
-coverage = {version = "7.10.7", extras = ["toml"]}
-mypy = "1.18.2"
+coverage = {version = "7.13.5", extras = ["toml"]}
+mypy = "1.20.1"
 prek = "0.3.9"
 pre-commit-hooks = "6.0.0"
-pylint = "3.3.9"
-pytest = "8.4.2"
-pytest-asyncio = "1.2.0"
-pytest-cov = "7.0.0"
-ruff = "0.14.0"
-safety = "3.6.2"
-yamllint = "1.37.1"
-syrupy = "5.0.0"
+pylint = "4.0.5"
+pytest = "9.0.3"
+pytest-asyncio = "1.3.0"
+pytest-cov = "7.1.0"
+ruff = "0.15.11"
+safety = "3.7.0"
+yamllint = "1.38.0"
+syrupy = "5.1.0"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joostlek/python-youtube/issues"
@@ -53,6 +53,7 @@ Changelog = "https://github.com/joostlek/python-youtube/releases"
 
 [tool.coverage.report]
 show_missing = true
+fail_under = 80
 
 [tool.coverage.run]
 plugins = ["covdefaults"]
