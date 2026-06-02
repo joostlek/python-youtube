@@ -146,7 +146,6 @@ attrs = ">=17.3.0"
 frozenlist = ">=1.1.1"
 multidict = ">=4.5,<7.0"
 propcache = ">=0.2.0"
-typing_extensions = {version = ">=4.4", markers = "python_version < \"3.13\""}
 yarl = ">=1.17.0,<2.0"
 
 [package.extras]
@@ -165,7 +164,6 @@ files = [
 
 [package.dependencies]
 frozenlist = ">=1.1.0"
-typing-extensions = {version = ">=4.2", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "annotated-doc"
@@ -202,7 +200,6 @@ files = [
 
 [package.dependencies]
 idna = ">=2.8"
-typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 
 [package.extras]
 trio = ["trio (>=0.32.0)"]
@@ -219,10 +216,7 @@ files = [
 ]
 
 [package.dependencies]
-aiohttp = [
-    {version = ">=3.7.0,<3.8.dev0 || >=3.9.dev0", markers = "python_version >= \"3.12\""},
-    {version = ">=3.7.0", markers = "python_version >= \"3.10\" and python_version < \"3.12\""},
-]
+aiohttp = {version = ">=3.7.0,<3.8.dev0 || >=3.9.dev0", markers = "python_version >= \"3.12\""}
 pytest-asyncio = {version = ">=0.17.0", markers = "python_version >= \"3.7\""}
 
 [[package]]
@@ -1996,10 +1990,7 @@ files = [
 [package.dependencies]
 astroid = ">=4.0.2,<=4.1.dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
-dill = [
-    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
-    {version = ">=0.3.6", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
-]
+dill = {version = ">=0.3.7", markers = "python_version >= \"3.12\""}
 isort = ">=5,<5.13 || >5.13,<9"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2"
@@ -2043,7 +2034,6 @@ files = [
 
 [package.dependencies]
 pytest = ">=8.2,<10"
-typing-extensions = {version = ">=4.12", markers = "python_version < \"3.13\""}
 
 [package.extras]
 docs = ["sphinx (>=5.3)", "sphinx-rtd-theme (>=1)"]
@@ -2678,5 +2668,5 @@ propcache = ">=0.2.1"
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.11"
-content-hash = "3ff07c45e5e41bdcd24219f98207dee2db5ae3dc0d655fba3c9ba14476fe85e1"
+python-versions = "^3.13"
+content-hash = "2643db6dc8b5e7ddf233547ab870fefb644e202923b752d675f24780d15293cf"
