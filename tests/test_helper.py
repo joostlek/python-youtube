@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
 
 
-async def _generator(amount: int) -> AsyncGenerator[int, None]:
+async def _generator(amount: int) -> AsyncGenerator[int]:
     for i in range(amount):
         yield i
 

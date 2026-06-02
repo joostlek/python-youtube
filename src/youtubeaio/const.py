@@ -1,6 +1,6 @@
 """Models for YouTube API."""
 
-from enum import Enum
+from enum import Enum, StrEnum
 
 
 class HttpStatusCode(int, Enum):
@@ -9,7 +9,7 @@ class HttpStatusCode(int, Enum):
     NOT_FOUND = 404
 
 
-class VideoPart(str, Enum):
+class VideoPart(StrEnum):
     """Enum holding the part parameters for video requests."""
 
     CONTENT_DETAILS = "contentDetails"
@@ -27,28 +27,28 @@ class VideoPart(str, Enum):
     TOPIC_DETAILS = "topicDetails"
 
 
-class VideoDimension(str, Enum):
+class VideoDimension(StrEnum):
     """Enum holding the possible video dimensions."""
 
     D3 = "3d"
     D2 = "2d"
 
 
-class VideoDefinition(str, Enum):
+class VideoDefinition(StrEnum):
     """Enum holding the possible video definitions."""
 
     HD = "hd"
     SD = "sd"
 
 
-class VideoProjection(str, Enum):
+class VideoProjection(StrEnum):
     """Enum holding the possible video projections."""
 
     THREE_SIXTY = "360"
     RECTANGULAR = "rectangular"
 
 
-class LiveBroadcastContent(str, Enum):
+class LiveBroadcastContent(StrEnum):
     """Enum holding the liveBroadcastContent values."""
 
     NONE = "none"

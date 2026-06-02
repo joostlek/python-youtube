@@ -30,8 +30,7 @@ from youtubeaio.types import (
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator, Callable, Coroutine
-
-    from typing_extensions import Self
+    from typing import Self
 
 __all__ = [
     "YouTube",
@@ -136,7 +135,7 @@ class YouTube:
         return_type: T,
         body_data: dict[str, Any] | None = None,
         split_lists: bool = False,
-    ) -> AsyncGenerator[T, None]:
+    ) -> AsyncGenerator[T]:
         method = self._r_lookup.get(req.lower(), self._api_get_request)
         _after = url_params.get("nextPageToken")
         _first = True
@@ -162,7 +161,7 @@ class YouTube:
                     yield return_type(**entry)  # type: ignore[operator]
                 _after = data.get("nextPageToken")
                 _first = False
-        except asyncio.TimeoutError as exc:
+        except TimeoutError as exc:
             msg = "Timeout occurred"
             raise YouTubeBackendError(msg) from exc
 
@@ -207,7 +206,7 @@ class YouTube:
     async def get_videos(
         self,
         video_ids: list[str],
-    ) -> AsyncGenerator[YouTubeVideo, None]:
+    ) -> AsyncGenerator[YouTubeVideo]:
         """Get videos by id."""
         if not video_ids:
             msg = "at least one video id has to be set"
@@ -231,7 +230,7 @@ class YouTube:
     async def _get_channels(
         self,
         param: dict[str, Any],
-    ) -> AsyncGenerator[YouTubeChannel, None]:
+    ) -> AsyncGenerator[YouTubeChannel]:
         """Get channels."""
         async for item in self._build_generator(
             "GET",
@@ -241,7 +240,7 @@ class YouTube:
         ):
             yield item  # type: ignore[misc]
 
-    async def get_user_channels(self) -> AsyncGenerator[YouTubeChannel, None]:
+    async def get_user_channels(self) -> AsyncGenerator[YouTubeChannel]:
         """Return channels owned by the authenticated user."""
         param = {
             "part": "snippet",
@@ -253,7 +252,7 @@ class YouTube:
     async def get_channels(
         self,
         channel_ids: list[str],
-    ) -> AsyncGenerator[YouTubeChannel, None]:
+    ) -> AsyncGenerator[YouTubeChannel]:
         """Return list of channels."""
         param = {
             "part": "snippet,contentDetails,statistics",
@@ -264,7 +263,7 @@ class YouTube:
 
     async def get_user_subscriptions(
         self,
-    ) -> AsyncGenerator[YouTubeSubscription, None]:
+    ) -> AsyncGenerator[YouTubeSubscription]:
         """Get subscriptions for authenticated user."""
         param = {
             "part": "snippet",
@@ -282,7 +281,7 @@ class YouTube:
         self,
         playlist_id: str,
         max_results: int = 50,
-    ) -> AsyncGenerator[YouTubePlaylistItem, None]:
+    ) -> AsyncGenerator[YouTubePlaylistItem]:
         """Get playlist by id."""
         param = {
             "part": "snippet,contentDetails",

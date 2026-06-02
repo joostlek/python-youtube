@@ -1,7 +1,7 @@
 """Tests for the YouTube client."""
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import aiohttp
 import pytest
@@ -47,7 +47,7 @@ async def test_fetch_channel(
             0,
             34,
             43,
-            tzinfo=timezone.utc,
+            tzinfo=UTC,
         )
         with pytest.raises(StopAsyncIteration):
             await channel_generator.__anext__()
@@ -82,7 +82,7 @@ async def test_fetch_own_channel(
             0,
             34,
             43,
-            tzinfo=timezone.utc,
+            tzinfo=UTC,
         )
         with pytest.raises(StopAsyncIteration):
             await channel_generator.__anext__()

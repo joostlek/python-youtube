@@ -6,7 +6,7 @@ import re
 import urllib.parse
 from datetime import timedelta
 from enum import Enum
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any
 
 from youtubeaio.types import AuthScope
 
@@ -22,8 +22,6 @@ __all__ = [
     "first",
     "limit",
 ]
-
-T = TypeVar("T")
 
 YOUTUBE_AUTH_BASE_URL: str = "https://oauth2.googleapis.com"
 YOUTUBE_AUTH_TOKEN_URL: str = f"{YOUTUBE_AUTH_BASE_URL}/token"
@@ -85,7 +83,7 @@ def build_url(
     return url + (("?" + result) if len(result) > 0 else "")
 
 
-async def first(generator: AsyncGenerator[T, None]) -> T | None:
+async def first[T](generator: AsyncGenerator[T]) -> T | None:
     """Return the first value or None from the given AsyncGenerator."""
     try:
         return await generator.__anext__()
@@ -93,16 +91,16 @@ async def first(generator: AsyncGenerator[T, None]) -> T | None:
         return None
 
 
-def chunk(source: list[T], chunk_size: int) -> Generator[list[T], None, None]:
+def chunk[T](source: list[T], chunk_size: int) -> Generator[list[T]]:
     """Divide the source list in chunks of given size."""
     for i in range(0, len(source), chunk_size):
         yield source[i : i + chunk_size]
 
 
-async def limit(
-    generator: AsyncGenerator[T, None],
+async def limit[T](
+    generator: AsyncGenerator[T],
     total: int,
-) -> AsyncGenerator[T, None]:
+) -> AsyncGenerator[T]:
     """Limit the number of entries returned from the AsyncGenerator."""
     if total < 1:
         msg = "Limit has to be an int > 1"
