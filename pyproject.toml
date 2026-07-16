@@ -39,7 +39,7 @@ Changelog = "https://github.com/joostlek/python-youtube/releases"
 [dependency-groups]
 dev = [
     "aresponses==3.0.0",
-    "codespell==2.4.2",
+    "codespell==2.4.3",
     "covdefaults==2.3.0",
     "coverage[toml]==7.15.1",
     "mypy==1.20.2",
