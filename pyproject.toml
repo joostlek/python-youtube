@@ -171,6 +171,8 @@ ignore = [
   "PLR0913", # A lot of arguments
   "ISC001", # Conflicts with other rules
   "COM812", # Conflicts with other rules
+  "CPY001", # No copyright headers in this project
+  "PLR0917", # A lot of positional arguments
 ]
 select = ["ALL"]
 
